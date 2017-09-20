@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+	<select id="selectUser" resultType="map">
+		select
+		employee_num as username,
+		password as password
+		from user_info inner join device_info
+		on employee_num = User_info_employee_num
+		where employee_num = #{username} 
+	</select>
+	
+</mapper>
