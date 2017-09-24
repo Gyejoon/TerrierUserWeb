@@ -28,21 +28,21 @@ public class HomeController {
 	SqlSession sqlSession;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(Locale locale, Model model) {
-		logger.info("/ 경로로 접속함->" + new Date());
+	public String index(HttpServletRequest request, Model model) {
+		logger.info(request.getRemoteAddr() + "가 / 경로로 접속함->" + new Date());
 		
 		return "redirect:profile";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(){
-		logger.info("/login 경로로 접속함->" + new Date());
+	public String login(HttpServletRequest request){
+		logger.info(request.getRemoteAddr() + "가 /login 경로로 접속함->" + new Date());
 		return "security/login";
 	}
 	
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String profile(HttpServletRequest request, Model model){
-		logger.info("/profile 경로로 접속함->" + new Date());
+		logger.info(request.getRemoteAddr() + "가 /profile 경로로 접속함->" + new Date());
 		
 		String username = request.getSession().getAttribute("username").toString();
 		

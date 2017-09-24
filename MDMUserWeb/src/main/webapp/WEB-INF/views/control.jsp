@@ -6,7 +6,7 @@
 	<head>
 		<title>사원 페이지</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1" />-->
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="<c:url value='/resources/css/jquery.smartPop.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/semantic.min.css' />" />
@@ -60,7 +60,7 @@
 						<nav id="nav">
 							<ul>
 								<li><a href="${pageContext.request.contextPath}/profile" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/cloud" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-cloud">클라우드</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/cloud" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-cloud">백업관리</span></a></li>
 								<li><a href="${pageContext.request.contextPath}/lost" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-phone">분실관리</span></a></li>
 								<li><a href="${pageContext.request.contextPath}/control" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">제어요청</span></a></li>
 							</ul>
@@ -73,7 +73,7 @@
 						<c:if test="${profile.OTP eq 'NO'}">
        						<li><a href="#" onclick="javascript:otpadd()" class="icon fa-lock"><span class="label">OTP</span></a></li>
        					</c:if>
-						<li><a href="${pageContext.request.contextPath}/config" class="icon fa-cog"><span class="label">설정</span></a></li>
+						<li><a href="#" onclick="javascript:config()" class="icon fa-cog"><span class="label">설정</span></a></li>
 						<li><a href="${pageContext.request.contextPath}/logout" class="icon fa-sign-out"><span class="label">로그아웃</span></a></li>
 					</ul>
 				</div>
@@ -136,8 +136,16 @@
 						background : "black", 
 						width: 400, 
 						height: 400, 
-						url: '/mdmuserweb/otp'
+						url: '/otp'
 						});
+				}
+				function config(){
+					$.smartPop.open({
+						background : "black",
+						width: 600,
+						height: 600,
+						url: '/config'
+					});
 				}
 			</script>
 

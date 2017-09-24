@@ -46,7 +46,7 @@ public class ProfileController {
 	
 	@RequestMapping(value = "/cloud", method = RequestMethod.GET)
 	public String cloud(HttpServletRequest request, Model model){
-		logger.info("/cloud 경로로 접속함->" + new Date());
+		logger.info(request.getRemoteAddr() + "가 /cloud 경로로 접속함->" + new Date());
 		
 		String username = request.getSession().getAttribute("username").toString();
 		
@@ -59,7 +59,7 @@ public class ProfileController {
 	
 	@RequestMapping(value = "/otp", method = RequestMethod.GET)
 	public String otp(HttpServletRequest request, Model model){
-		logger.info("/otp 경로로 접속함 ->" + new Date());
+		logger.info(request.getRemoteAddr() + "가 /otp 경로로 접속함 ->" + new Date());
 		
 		
 		String username = request.getSession().getAttribute("username").toString();
@@ -69,7 +69,7 @@ public class ProfileController {
 		try{
 			// Post로 OTP서버에 OTP정보 요청
 			CloseableHttpClient httpClient = HttpClients.createDefault();
-			HttpPost httpPost = new HttpPost("http://58.141.234.126:55306/otpadd");
+			HttpPost httpPost = new HttpPost("http://58.141.234.126:55406/otpadd");
 			
 			// 파라미터는 employee_num, Name
 			List<NameValuePair> list = new ArrayList<NameValuePair>();
@@ -107,7 +107,7 @@ public class ProfileController {
 	
 	@RequestMapping(value = "/lost", method = RequestMethod.GET)
 	public String lost(HttpServletRequest request, Model model){
-		logger.info("/lost 경로로 접속함->" + new Date());
+		logger.info(request.getRemoteAddr() + "가 /lost 경로로 접속함->" + new Date());
 		
 		String username = request.getSession().getAttribute("username").toString();
 		
@@ -120,7 +120,7 @@ public class ProfileController {
 	
 	@RequestMapping(value = "/control", method = RequestMethod.GET)
 	public String control(HttpServletRequest request, Model model){
-		logger.info("/control 경로로 접속함->" + new Date());
+		logger.info(request.getRemoteAddr() + "가 /control 경로로 접속함->" + new Date());
 		
 		String username = request.getSession().getAttribute("username").toString();
 		
@@ -133,7 +133,7 @@ public class ProfileController {
 	
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
 	public String config(HttpServletRequest request, Model model){
-		logger.info("/config 경로로 접속함->" + new Date());
+		logger.info(request.getRemoteAddr() + "가 /config 경로로 접속함->" + new Date());
 		
 		String username = request.getSession().getAttribute("username").toString();
 		

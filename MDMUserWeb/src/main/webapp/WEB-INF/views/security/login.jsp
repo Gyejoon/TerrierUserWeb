@@ -16,7 +16,7 @@
 
 <body>
   <div class="login-form">
-     <h1>Terrier</h1>
+     <h1>TERRIER</h1>
 
      <form action="j_spring_security_check" method="post">
        <div class="form-group ">

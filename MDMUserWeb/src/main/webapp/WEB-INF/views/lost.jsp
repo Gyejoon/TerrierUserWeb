@@ -68,7 +68,7 @@
 						<nav id="nav">
 							<ul>
 								<li><a href="${pageContext.request.contextPath}/profile" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/cloud" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-cloud">클라우드</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/cloud" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-cloud">백업관리</span></a></li>
 								<li><a href="${pageContext.request.contextPath}/lost" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-phone">분실관리</span></a></li>
 								<li><a href="${pageContext.request.contextPath}/control" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">제어요청</span></a></li>
 							</ul>
@@ -81,7 +81,7 @@
 						<c:if test="${profile.OTP eq 'NO'}">
        						<li><a href="#" onclick="javascript:otpadd()" class="icon fa-lock"><span class="label">OTP</span></a></li>
        					</c:if>
-						<li><a href="${pageContext.request.contextPath}/config" class="icon fa-cog"><span class="label">설정</span></a></li>
+						<li><a href="#" onclick="javascript:config()" class="icon fa-cog"><span class="label">설정</span></a></li>
 						<li><a href="${pageContext.request.contextPath}/logout" class="icon fa-sign-out"><span class="label">로그아웃</span></a></li>
 					</ul>
 				</div>
@@ -115,7 +115,16 @@
 						<script async defer 
 						src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAHUEeHC6eKVtvQqP7X1AGK6zg9aNTJUww&callback=initMap">
 						</script>
-						
+						<hr>
+						<h1 style="text-align: center;">Hello World WebSocket Client</h1>
+					    <br>
+					    	<div style="text-align: center;">
+					            <form action="">
+					                <input onclick="send_message()" value="Send" type="button">
+					                <input id="textID" name="message" value="Hello WebSocket!" type="text"><br>
+					            </form>
+					        </div>
+					        <div id="output"></div>
 					</div>
 				</div>
 					
@@ -142,15 +151,71 @@
 			<script src="<c:url value='/resources/js/semantic.min.js'/>"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="<c:url value='/resources/js/main.js' />"></script>
+			<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 			<script>
 				function otpadd(){
 					$.smartPop.open({
 						background : "black", 
 						width: 400, 
 						height: 400, 
-						url: '/mdmuserweb/otp'
+						url: '/otp'
 						});
 				}
+				function config(){
+					$.smartPop.open({
+						background : "black",
+						width: 600,
+						height: 600,
+						url: '/config'
+					});
+				}
+				
+				var wsUri = "ws://localhost:8181/websocket/location";
+				
+				function init(){
+					output = document.getElementById("output");
+				}
+				
+				function send_message(){
+					websocket = new WebSocket(wsUri);
+					websocket.onopen = function(evt){
+						onOpen(evt)
+					};
+					websocket.onmessage = function(evt){
+						onMessage(evt)
+					};
+					websocket.onerror = function(evt){
+						onError(evt)
+					}
+				}
+				
+				function onOpen(evt){
+					writeToScreen("Connected to Endpoint!");
+					doSend(textID.value);
+				}
+				
+				function onMessage(evt){
+					writeToScreen("Message Received: " + evt.data);
+				}
+				
+				function onError(evt){
+					writeToScreen("ERROR : " + evt.data);
+				}
+				
+				function doSend(message){
+					writeToScreen("Message Sent: " + message);
+					websocket.send(message);
+				}
+				
+				function writeToScreen(message){
+					var pre = document.createElement("p");
+					pre.style.wordWrap = "break-word";
+					pre.innerHTML = message;
+					
+					output.appendChild(pre);
+				}
+				
+				window.addEventListener("load", init, false);
 			</script>			
 
 	</body>
