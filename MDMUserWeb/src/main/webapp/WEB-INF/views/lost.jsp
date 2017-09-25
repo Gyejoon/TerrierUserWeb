@@ -101,16 +101,34 @@
 						<div id="map"></div>
 						<script>
 							function initMap() {
-								var uluru = {lat: 37.4772339, lng: 126.9544534};
+								var uluru = {lat: ${location.latitude}, lng: ${location.longitude}};
 								var map = new google.maps.Map(document.getElementById('map'), {
-									zoom: 16,
+									zoom: 18,
 									center: uluru
 								});
+								
+								
 								var marker = new google.maps.Marker({
 									position: uluru,
-									map: map
+									map: map,
+									title: '클릭하면 상세한 주소를 확인할 수 있습니다.'
+								});
+								
+								var contentString = '<div style="width:140px;height:50px;color:#000;">${address}</div>';
+								
+								var infowindow = new google.maps.InfoWindow({
+									content: contentString
+								});
+								
+								infowindow.open(map, marker);
+
+								google.maps.event.addListener(marker, 'click', function(){
+									infowindow.open(map, marker);
 								});
 							}
+							
+							google.setOnLoadCallback(initMap);
+							google.maps.event.addDomListener(window, 'load', initMap);
 						</script>
 						<script async defer 
 						src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAHUEeHC6eKVtvQqP7X1AGK6zg9aNTJUww&callback=initMap">

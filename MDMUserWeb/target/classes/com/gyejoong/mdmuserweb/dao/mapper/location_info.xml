@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gyejoong.mdmuserweb.dao.location_info">
+	<select id="loc_info" resultType="com.gyejoong.mdmuserweb.vo.LocationVo">
+		select Latitude, Longitude from location_history l
+		inner join device_info d
+		on l.Device_info_Id = d.Id
+		inner join user_info u
+		on u.employee_num = d.User_info_employee_num
+		where employee_num = #{username} order by idLocation desc limit 1;
+	</select>
+	
+</mapper>

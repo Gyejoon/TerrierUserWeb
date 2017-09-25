@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.gyejoong.mdmuserweb.dao.IDao;
+import com.gyejoong.mdmuserweb.dao.location_info;
+import com.gyejoong.mdmuserweb.gps.GpsToAddress;
 import com.gyejoong.mdmuserweb.vo.OtpVo;
 
 /**
@@ -112,8 +114,21 @@ public class ProfileController {
 		String username = request.getSession().getAttribute("username").toString();
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
+		location_info location = sqlSession.getMapper(location_info.class);
+		
+			try {
+				GpsToAddress gps = new GpsToAddress(Float.parseFloat(location.loc_info(username).getLatitude()),
+						Float.parseFloat(location.loc_info(username).getLongitude()));
+				
+				model.addAttribute("address", gps.getAddress());
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		
 		model.addAttribute("profile", dao.Profile(username));
+		model.addAttribute("location", location.loc_info(username));
 		
 		return "lost";
 	}
