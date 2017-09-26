@@ -115,16 +115,17 @@ public class ProfileController {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		location_info location = sqlSession.getMapper(location_info.class);
+		GpsToAddress gps = null;
 		
 			try {
-				GpsToAddress gps = new GpsToAddress(Float.parseFloat(location.loc_info(username).getLatitude()),
+				gps = new GpsToAddress(Float.parseFloat(location.loc_info(username).getLatitude()),
 						Float.parseFloat(location.loc_info(username).getLongitude()));
 				
 				model.addAttribute("address", gps.getAddress());
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
-				e.printStackTrace();
+				model.addAttribute("address", "주소가 없습니다.");
 			}
 		
 		model.addAttribute("profile", dao.Profile(username));

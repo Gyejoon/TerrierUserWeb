@@ -9,7 +9,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-public class GpsToAddress {
+public class GpsToAddress{
 	double latitude;
 	double longitude;
 	String regionAddress;
@@ -39,7 +39,7 @@ public class GpsToAddress {
 		return jsonString;
 	}
 
-	private String getRegionAddress(String jsonString) {
+	private String getRegionAddress(String jsonString){
 		
 		JSONObject jObj = (JSONObject) JSONValue.parse(jsonString);
 		JSONArray jArray = (JSONArray) jObj.get("results");
@@ -47,7 +47,7 @@ public class GpsToAddress {
 		return (String) jObj.get("formatted_address");
 	}
 
-	public String getAddress() {
+	public String getAddress(){
 		return regionAddress;
 	}
 }

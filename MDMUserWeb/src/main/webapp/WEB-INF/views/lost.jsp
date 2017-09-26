@@ -100,24 +100,27 @@
 						
 						<div id="map"></div>
 						<script>
+							var uluru = {lat: ${location.latitude}, lng: ${location.longitude}};
+							var contentString = '<div style="width:140px;height:50px;color:#000;">';
+							var contentString1 = '${address}';
+							var contentString2 = '</div>';
+							var contentString3 = contentString+=contentString1+=contentString2;
+							
 							function initMap() {
-								var uluru = {lat: ${location.latitude}, lng: ${location.longitude}};
 								var map = new google.maps.Map(document.getElementById('map'), {
-									zoom: 18,
+									zoom: 16,
 									center: uluru
 								});
-								
-								
+									
 								var marker = new google.maps.Marker({
 									position: uluru,
 									map: map,
 									title: '클릭하면 상세한 주소를 확인할 수 있습니다.'
 								});
 								
-								var contentString = '<div style="width:140px;height:50px;color:#000;">${address}</div>';
 								
 								var infowindow = new google.maps.InfoWindow({
-									content: contentString
+									content: contentString3
 								});
 								
 								infowindow.open(map, marker);
@@ -134,15 +137,6 @@
 						src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAHUEeHC6eKVtvQqP7X1AGK6zg9aNTJUww&callback=initMap">
 						</script>
 						<hr>
-						<h1 style="text-align: center;">Hello World WebSocket Client</h1>
-					    <br>
-					    	<div style="text-align: center;">
-					            <form action="">
-					                <input onclick="send_message()" value="Send" type="button">
-					                <input id="textID" name="message" value="Hello WebSocket!" type="text"><br>
-					            </form>
-					        </div>
-					        <div id="output"></div>
 					</div>
 				</div>
 					
@@ -204,16 +198,19 @@
 					};
 					websocket.onerror = function(evt){
 						onError(evt)
-					}
+					};
 				}
 				
 				function onOpen(evt){
-					writeToScreen("Connected to Endpoint!");
-					doSend(textID.value);
+					doSend("hello");
 				}
 				
 				function onMessage(evt){
-					writeToScreen("Message Received: " + evt.data);
+					var location = evt.data.split(":");
+					uluru.lat = parseFloat(location[0]);
+					uluru.lng = parseFloat(location[1]);
+					contentString3 = location[2];
+					initMap();
 				}
 				
 				function onError(evt){
@@ -233,7 +230,7 @@
 					output.appendChild(pre);
 				}
 				
-				window.addEventListener("load", init, false);
+				window.onload = send_message;
 			</script>			
 
 	</body>

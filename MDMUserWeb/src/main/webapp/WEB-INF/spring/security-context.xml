@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-	<security:http auto-config="true">
+	<security:http auto-config="true" disable-url-rewriting="true">
 		<security:form-login login-page="/login" 
 				username-parameter="emp"
 				password-parameter="password"
