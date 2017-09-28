@@ -197,7 +197,7 @@
 				    var node = event.target.nodeName;
 				    var Id = event.target.id;
 				    if(node === "IMG" || event.target.id === "imagename"){
-					    $("<a href='#'></a><div class='custom-menu'>다운로드</div>")
+					    $("<div class='custom-menu'>다운로드</div>")
 					        .appendTo(".container")
 					        .css({top: event.pageY + "px", left: event.pageX + "px"});
 				    }
