@@ -34,7 +34,7 @@
 			
 			#contentsOutput {
 				margin-top: 10px;
-				margin-bottom: 10px;
+				margin-bottom: 10px;					
 				line-height: 1.8em;
 			}
 			
@@ -161,13 +161,23 @@
 									<a href="#" aria-label="Next">
 										<span aria-hidden="true">&raquo;</span>
 									</a>
-								</li>
-								<li id="requests">
-									<button class="button">요청</button>
-								</li>								
+								</li>						
 							</ul>
-					
 						</div>
+						<table>
+						<tr>
+						<td>
+							<select name="search" class="select">
+								<option value="title" >제목</option>
+								<option value="name" >글쓴이</option>
+								<option value="content" >내용</option>
+							</select> 
+						</td>
+						<td class="text-right">
+							글쓰기
+						</td>
+						</tr>
+						</table>											
 						
 
 						
