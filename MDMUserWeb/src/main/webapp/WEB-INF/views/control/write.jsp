@@ -56,6 +56,12 @@
 			
 			a:hover {text-decoration: none;}
 			
+			.form-control {
+				font-size: 14px;
+				width: 3000px;
+				height: 40px;
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -102,135 +108,33 @@
 					
 					<div class="ui raised segment">
 						<a class="ui blue ribbon label">Terrier</a>
-							<span id="board_title">제어 요청 내역</span>
+							<span id="board_title">제어 요청 글쓰기</span>								
 						
-						<table class="table table-hover">
-							<thead>
-							<tr>
-								<th>번호</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>날짜</th>
-								<th>승인여부</th>
-							</tr>
-							</thead>
-							<tbody>
-							<tr>
-								<td>10</td>
-								<td><a href="#">헬로우안녕하십니까 반갑습니다.!</a></td>
-								<td>강준영</td>
-								<td>2017-09-27</td>
-								<td>no</td>
-							</tr>
-							<tr>
-								<td>9</td>
-								<td>반갑습니다.</td>
-								<td>강준영</td>
-								<td>2017-09-27</td>
-								<td>no</td>
-							</tr>
-							<tr>
-								<td>8</td>
-								<td>영원히</td>
-								<td>강준영</td>
-								<td>2017-09-27</td>
-								<td>no</td>
-							</tr>
-							<tr>
-								<td>7</td>
-								<td>반갑습니다.</td>
-								<td>강준영</td>
-								<td>2017-09-27</td>
-								<td>no</td>
-							</tr>
-							<tr>
-								<td>6</td>
-								<td>영원히</td>
-								<td>강준영</td>
-								<td>2017-09-27</td>
-								<td>no</td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td>반갑습니다.</td>
-								<td>강준영</td>
-								<td>2017-09-27</td>
-								<td>no</td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>영원히</td>
-								<td>강준영</td>
-								<td>2017-09-27</td>
-								<td>no</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>영원히</td>
-								<td>강준영</td>
-								<td>2017-09-27</td>
-								<td>no</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>반갑습니다.</td>
-								<td>강준영</td>
-								<td>2017-09-27</td>
-								<td>no</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>영원히</td>
-								<td>강준영</td>
-								<td>2017-09-27</td>
-								<td>no</td>
-							</tr>																																			
-							</tbody>
-						</table>
-						<div class="text-center">
-							<ul class="pagination pagination-lg">
-								<li class="disabled">
-								<a href="#" aria-label="Previous">
-									<span aria-hidden="true">&laquo;</span>
-								</a>
-								</li>
-								<li><a href="#">1</a></li>
-								<li class="active"><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li>
-									<a href="#" aria-label="Next">
-										<span aria-hidden="true">&raquo;</span>
-									</a>
-								</li>						
-							</ul>
-						</div>
-						<table>
-						<tr>
-							<td>
-							<form class="form-inline">
-							  <div class="form-group">
-							    <select class="form-control">
-							    	<option>제목</option>
-							    	<option>글쓴이</option>
-							    	<option>내용</option>
-							    </select>
-							    <div class="input-group">
-							      <input type="text" class="form-control" name="search">
-							    </div>
-							    <button type="submit" class="btn btn-primary">검색</button>
-							  </div>
-							  
-							</form>
-							</td>					
-							<td class="text-right">
-								<a href="/control/write" class="btn btn-primary">글쓰기</a>
-							</td>
-						</tr>
-						</table>											
-						
+						<div class="ui blue fluid card">
+							 <div class="content">
+						       		 
+								<form class="content ui form" method="post" action="/control/write">
 
+									<div class="two fields">
+							    		<div class="field">
+							      			<label> 제목</label>
+											<input class="form-control" type="text" name="title" id="title_tit">
+										</div>
+										<div class="field"></div>
+									</div>
+											
+									<div class="field">
+							    		<label> 내용</label>
+							    		<textarea class ="form-control" id="contents" name="contents" rows="15" cols="80"></textarea>
+							  		</div>		
+									<div class="text-right">
+										<input class="btn btn-primary" type="submit" value="추가" name="" />
+										<input class="btn btn-primary" type="button" value="취소" name="" onclick="javascript:history.back()" />
+										<input class="btn btn-primary" type="button" value="목록" name="" onclick="javascript:history.back()" />
+									</div>
+								</form>
+							</div>
+						</div>
 						
 					</div>
 				</div>
@@ -255,12 +159,18 @@
 			<script src="<c:url value='/resources/js/jquery.scrollzer.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/skel.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/util.js'/>"></script>
+			<script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
 			<script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/semantic.min.js'/>"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="<c:url value='/resources/js/main.js' />"></script>
 			
 			<script>
+			
+				window.onload = function(){
+					CKEDITOR.replace('contents');
+				}
+			
 				function otpadd(){
 					$.smartPop.open({
 						background : "black", 
@@ -269,6 +179,7 @@
 						url: '/otp'
 						});
 				}
+
 				function config(){
 					$.smartPop.open({
 						background : "black",
@@ -277,6 +188,7 @@
 						url: '/config'
 					});
 				}
+
 			</script>
 
 	</body>

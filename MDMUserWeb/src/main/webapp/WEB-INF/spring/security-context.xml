@@ -24,6 +24,7 @@
 		<security:intercept-url pattern="/otp" access="ROLE_USER"/>
 		<security:intercept-url pattern="/control" access="ROLE_USER"/>
 		<security:intercept-url pattern="/lost" access="ROLE_USER"/>
+		<security:intercept-url pattern="/*/*" access="ROLE_USER"/>
 		<security:logout success-handler-ref="LogoutSuccessHandler" 
 						logout-url="/logout"/>
 		<security:access-denied-handler error-page="/login" />
