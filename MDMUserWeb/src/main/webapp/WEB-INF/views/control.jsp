@@ -9,6 +9,8 @@
 		<!-- <meta name="viewport" content="width=device-width, initial-scale=1" />-->
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="<c:url value='/resources/css/jquery.smartPop.css' />" />
+		<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap-theme.css' />" />
+		<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/semantic.min.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/main.css' />" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -32,7 +34,7 @@
 			
 			#contentsOutput {
 				margin-top: 10px;
-				margin-bottom: 10px;
+				margin-bottom: 10px;					
 				line-height: 1.8em;
 			}
 			
@@ -41,6 +43,25 @@
 				font-weight:bold;
 				color:teal;
 			}
+			
+			table {
+				margin-top: 20px;
+				font-size: 16px;
+				color: #000;
+			}
+			
+			th {
+				font-weight: bold;
+			}
+			
+			a:LINK {
+				text-decoration: none;
+			}
+			
+			a:VISITED {
+				text-decoration: none;
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -65,7 +86,6 @@
 								<li><a href="${pageContext.request.contextPath}/control" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">제어요청</span></a></li>
 							</ul>
 						</nav>
-
 				</div>
 
 				<div class="bottom">
@@ -90,19 +110,77 @@
 						<a class="ui blue ribbon label">Terrier</a>
 							<span id="board_title">제어 요청 내역</span>
 						
-						<div class="ui blue fluid card">
-							<div class="content">
-								<div class="ui grid">
-					   				<div class="two wide column">번호</div>
-					   				<div class="eight wide column">제목</div>
-					   				<div class="two wide column">작성자</div>
-					   				<div class="two wide column">작성일</div>
-					   				<div class="two wide column">조회수</div>
-								</div>
-								
-	
-							</div>
+						<table class="table table-hover">
+							<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>날짜</th>
+								<th>승인여부</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td>3</td>
+								<td><a href="#">헬로우안녕하십니까 반갑습니다.!</a></td>
+								<td>강준영</td>
+								<td>2017-09-27</td>
+								<td>no</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>반갑습니다.</td>
+								<td>강준영</td>
+								<td>2017-09-27</td>
+								<td>no</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>영원히</td>
+								<td>강준영</td>
+								<td>2017-09-27</td>
+								<td>no</td>
+							</tr>														
+							</tbody>
+						</table>
+						<hr/>
+						<div class="text-center">
+							<ul class="pagination">
+								<li class="disabled">
+								<a href="#" aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+								</a>
+								</li>
+								<li><a href="#">1</a></li>
+								<li class="active"><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">5</a></li>
+								<li>
+									<a href="#" aria-label="Next">
+										<span aria-hidden="true">&raquo;</span>
+									</a>
+								</li>						
+							</ul>
 						</div>
+						<table>
+						<tr>
+						<td>
+							<select name="search" class="select">
+								<option value="title" >제목</option>
+								<option value="name" >글쓴이</option>
+								<option value="content" >내용</option>
+							</select> 
+						</td>
+						<td class="text-right">
+							글쓰기
+						</td>
+						</tr>
+						</table>											
+						
+
+						
 					</div>
 				</div>
 					
@@ -126,6 +204,7 @@
 			<script src="<c:url value='/resources/js/jquery.scrollzer.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/skel.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/util.js'/>"></script>
+			<script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/semantic.min.js'/>"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="<c:url value='/resources/js/main.js' />"></script>
