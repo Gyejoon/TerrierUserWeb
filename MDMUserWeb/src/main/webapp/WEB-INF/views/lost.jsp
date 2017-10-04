@@ -182,7 +182,7 @@
 					});
 				}
 				
-				var wsUri = "ws://localhost:8181/websocket/location";
+				var wsUri = "ws://www.terrier.co19.kr/websocket/location";
 				
 				function init(){
 					output = document.getElementById("output");
