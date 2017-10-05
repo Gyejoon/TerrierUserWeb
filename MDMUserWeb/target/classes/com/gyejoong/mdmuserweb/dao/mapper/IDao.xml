@@ -12,4 +12,20 @@
     			where employee_num = #{username}
 	</select>
 	
+	<select id="BoardList" resultType="com.gyejoong.mdmuserweb.vo.BoardVo">
+		select * from control_board 
+		where User_info_employee_num = #{username} order by 
+		idcontrol_board desc;
+	</select>
+	
+	<select id="BoardView" resultType="com.gyejoong.mdmuserweb.vo.BoardVo">
+		SELECT * FROM control_board 
+		where idcontrol_board=#{id}
+	</select>
+	
+	<insert id="BoardWrite">
+		insert into control_board (User_info_employee_num, 
+		title, contents) values (#{param1}, #{param2}, #{param3})
+	</insert>
+	
 </mapper>

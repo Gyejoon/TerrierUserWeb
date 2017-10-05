@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<title>ªÁø¯ ∆‰¿Ã¡ˆ</title>
+		<title>ÏÇ¨Ïõê ÌéòÏù¥ÏßÄ</title>
 		<meta charset="utf-8" />
 		<!-- <meta name="viewport" content="width=device-width, initial-scale=1" />-->
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -56,6 +56,12 @@
 			
 			a:hover {text-decoration: none;}
 			
+			.form-control {
+				font-size: 14px;
+				width: 3000px;
+				height: 40px;
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -75,9 +81,9 @@
 						<nav id="nav">
 							<ul>
 								<li><a href="${pageContext.request.contextPath}/profile" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/cloud" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-cloud">πÈæ˜∞¸∏Æ</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/lost" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-phone">∫–Ω«∞¸∏Æ</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/control" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">¡¶æÓø‰√ª</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/cloud" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-cloud">Î∞±ÏóÖÍ¥ÄÎ¶¨</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/lost" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-phone">Î∂ÑÏã§Í¥ÄÎ¶¨</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/control" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Ï†úÏñ¥ÏöîÏ≤≠</span></a></li>
 							</ul>
 						</nav>
 				</div>
@@ -87,8 +93,8 @@
 						<c:if test="${profile.OTP eq 'NO'}">
        						<li><a href="#" onclick="javascript:otpadd()" class="icon fa-lock"><span class="label">OTP</span></a></li>
        					</c:if>
-						<li><a href="#" onclick="javascript:config()" class="icon fa-cog"><span class="label">º≥¡§</span></a></li>
-						<li><a href="${pageContext.request.contextPath}/logout" class="icon fa-sign-out"><span class="label">∑Œ±◊æ∆øÙ</span></a></li>
+						<li><a href="#" onclick="javascript:config()" class="icon fa-cog"><span class="label">ÏÑ§Ï†ï</span></a></li>
+						<li><a href="${pageContext.request.contextPath}/logout" class="icon fa-sign-out"><span class="label">Î°úÍ∑∏ÏïÑÏõÉ</span></a></li>
 					</ul>
 				</div>
 
@@ -102,84 +108,35 @@
 					
 					<div class="ui raised segment">
 						<a class="ui blue ribbon label">Terrier</a>
-							<span id="board_title">¡¶æÓ ø‰√ª ≥ªø™</span>
+							<span id="board_title">Ï†úÏñ¥ ÏöîÏ≤≠ Í∏Ä</span>								
 						
-						<table class="table table-hover">
-							<thead>
-							<tr>
-								<th>π¯»£</th>
-								<th>¡¶∏Ò</th>
-								<th>¿€º∫¿⁄</th>
-								<th>¿€º∫¿œ</th>
-								<th>Ω¬¿Œø©∫Œ</th>
-							</tr>
-							</thead>
-							<tbody>
-							<c:forEach items="${list}" var="dto">
-								<tr>
-									<td>${dto.idcontrol_board}</td>
-									<td width="600"><a href="control/view?id=${dto.idcontrol_board}">${dto.title}</a></td>
-									<td>${profile.name}</td>
-									<td>${dto.date}</td>
-									<c:choose>
-										<c:when test="${dto.admit == 0}">
-											<td>πÃ»Æ¿Œ</td>
-										</c:when>
-										<c:when test="${dto.admit == 1}">
-											<td>Ω¬¿Œøœ∑·</td>
-										</c:when>
-										<c:when test="${dto.admit == 2}">
-											<td>Ω¬¿Œ∞≈∫Œ</td>
-										</c:when>
-									</c:choose>
-								</tr>
-							</c:forEach>																																
-							</tbody>
-						</table>
-						<div class="text-center">
-							<ul class="pagination pagination-lg">
-								<li class="disabled">
-								<a href="#" aria-label="Previous">
-									<span aria-hidden="true">&laquo;</span>
-								</a>
-								</li>
-								<li><a href="#">1</a></li>
-								<li class="active"><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li>
-									<a href="#" aria-label="Next">
-										<span aria-hidden="true">&raquo;</span>
-									</a>
-								</li>						
-							</ul>
-						</div>
-						<table>
-						<tr>
-							<td>
-							<form class="form-inline">
-							  <div class="form-group">
-							    <select class="form-control">
-							    	<option>¡¶∏Ò</option>
-							    	<option>¡¶∏Ò+≥ªøÎ</option>
-							    	<option>≥ªøÎ</option>
-							    </select>
-							    <div class="input-group">
-							      <input type="text" class="form-control" name="search">
-							    </div>
-							    <button type="submit" class="btn btn-primary">∞Àªˆ</button>
-							  </div>
-							  
-							</form>
-							</td>					
-							<td class="text-right">
-								<a href="/control/write" class="btn btn-primary">±€æ≤±‚</a>
-							</td>
-						</tr>
-						</table>											
-						
+						<div class="ui blue fluid card">
+							 <div class="content">
 
+									<div class="two fields">
+							    		<div class="field">
+							      			<label style="font-weight: bold; font-size: 20px; color: #000;"> Ï†úÎ™©</label>
+											<div style="font-size: 14px; color: #000;">
+												${view.title}
+											</div>
+										</div>
+										<div class="field"></div>
+									</div>
+											
+									<div class="field">
+							    		<label style="font-weight: bold; font-size: 20px; color: #000;"> ÎÇ¥Ïö©</label>
+							    		<div style="font-size: 14px; color: #000;">
+											${view.contents}
+										</div>
+							    		
+							  		</div>		
+									<div class="text-right">
+										<input class="btn btn-primary" type="button" value="ÏàòÏ†ï" name="" />
+										<input class="btn btn-primary" type="button" value="ÏÇ≠Ï†ú" name="" onclick="javascript:history.back()" />
+										<input class="btn btn-primary" type="button" value="Î™©Î°ù" name="" onclick="javascript:history.back()" />
+									</div>
+							</div>
+						</div>
 						
 					</div>
 				</div>
@@ -204,12 +161,14 @@
 			<script src="<c:url value='/resources/js/jquery.scrollzer.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/skel.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/util.js'/>"></script>
+			<script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
 			<script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/semantic.min.js'/>"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="<c:url value='/resources/js/main.js' />"></script>
 			
 			<script>
+			
 				function otpadd(){
 					$.smartPop.open({
 						background : "black", 
@@ -218,6 +177,7 @@
 						url: '/otp'
 						});
 				}
+
 				function config(){
 					$.smartPop.open({
 						background : "black",
@@ -226,6 +186,7 @@
 						url: '/config'
 					});
 				}
+
 			</script>
 
 	</body>

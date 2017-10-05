@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<title>»ç¿ø ÆäÀÌÁö</title>
+		<title>ì‚¬ì› íŽ˜ì´ì§€</title>
 		<meta charset="utf-8" />
 		<!-- <meta name="viewport" content="width=device-width, initial-scale=1" />-->
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -81,9 +81,9 @@
 						<nav id="nav">
 							<ul>
 								<li><a href="${pageContext.request.contextPath}/profile" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/cloud" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-cloud">¹é¾÷°ü¸®</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/lost" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-phone">ºÐ½Ç°ü¸®</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/control" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Á¦¾î¿äÃ»</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/cloud" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-cloud">ë°±ì—…ê´€ë¦¬</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/lost" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-phone">ë¶„ì‹¤ê´€ë¦¬</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/control" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">ì œì–´ìš”ì²­</span></a></li>
 							</ul>
 						</nav>
 				</div>
@@ -93,8 +93,8 @@
 						<c:if test="${profile.OTP eq 'NO'}">
        						<li><a href="#" onclick="javascript:otpadd()" class="icon fa-lock"><span class="label">OTP</span></a></li>
        					</c:if>
-						<li><a href="#" onclick="javascript:config()" class="icon fa-cog"><span class="label">¼³Á¤</span></a></li>
-						<li><a href="${pageContext.request.contextPath}/logout" class="icon fa-sign-out"><span class="label">·Î±×¾Æ¿ô</span></a></li>
+						<li><a href="#" onclick="javascript:config()" class="icon fa-cog"><span class="label">ì„¤ì •</span></a></li>
+						<li><a href="${pageContext.request.contextPath}/logout" class="icon fa-sign-out"><span class="label">ë¡œê·¸ì•„ì›ƒ</span></a></li>
 					</ul>
 				</div>
 
@@ -108,7 +108,7 @@
 					
 					<div class="ui raised segment">
 						<a class="ui blue ribbon label">Terrier</a>
-							<span id="board_title">Á¦¾î ¿äÃ» ±Û¾²±â</span>								
+							<span id="board_title">ì œì–´ ìš”ì²­ ê¸€ì“°ê¸°</span>								
 						
 						<div class="ui blue fluid card">
 							 <div class="content">
@@ -117,20 +117,20 @@
 
 									<div class="two fields">
 							    		<div class="field">
-							      			<label> Á¦¸ñ</label>
+							      			<label> ì œëª©</label>
 											<input class="form-control" type="text" name="title" id="title_tit">
 										</div>
 										<div class="field"></div>
 									</div>
 											
 									<div class="field">
-							    		<label> ³»¿ë</label>
+							    		<label> ë‚´ìš©</label>
 							    		<textarea class ="form-control" id="contents" name="contents" rows="15" cols="80"></textarea>
 							  		</div>		
 									<div class="text-right">
-										<input class="btn btn-primary" type="submit" value="Ãß°¡" name="" />
-										<input class="btn btn-primary" type="button" value="Ãë¼Ò" name="" onclick="javascript:history.back()" />
-										<input class="btn btn-primary" type="button" value="¸ñ·Ï" name="" onclick="javascript:history.back()" />
+										<input class="btn btn-primary" type="submit" value="ì¶”ê°€" name="" />
+										<input class="btn btn-primary" type="button" value="ì·¨ì†Œ" name="" onclick="javascript:history.back()" />
+										<input class="btn btn-primary" type="button" value="ëª©ë¡" name="" onclick="javascript:history.back()" />
 									</div>
 								</form>
 							</div>

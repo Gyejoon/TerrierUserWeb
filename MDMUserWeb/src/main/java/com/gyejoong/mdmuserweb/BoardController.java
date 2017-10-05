@@ -1,5 +1,6 @@
 package com.gyejoong.mdmuserweb;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,5 +34,33 @@ public class BoardController {
 		model.addAttribute("profile", dao.Profile(username));
 		
 		return "/control/write";
+	}
+	
+	@RequestMapping(value="/control/write", method=RequestMethod.POST)
+	public String post(HttpServletRequest request) {
+		logger.info(request.getRemoteAddr() + "가 글작성 ->" + new Date());
+		
+		String username = request.getSession().getAttribute("username").toString();
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		dao.BoardWrite(username, request.getParameter("title"), request.getParameter("contents"));
+		
+		return "redirect:/control";
+	}
+	
+	@RequestMapping(value="/control/view", method=RequestMethod.GET)
+	public String view(HttpServletRequest request, Model model) {
+		logger.info(request.getRemoteAddr() + "가 " + request.getParameter("id")
+				+ "번 게시물 열람 ->" + new Date());
+		
+		String username = request.getSession().getAttribute("username").toString();
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		model.addAttribute("profile", dao.Profile(username));
+		model.addAttribute("view", dao.BoardView(request.getParameter("id")));
+		
+		return "/control/view";
 	}
 }
