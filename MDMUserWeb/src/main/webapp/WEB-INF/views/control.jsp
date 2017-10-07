@@ -115,10 +115,10 @@
 							</tr>
 							</thead>
 							<tbody>
-							<c:forEach items="${list}" var="dto">
+							<c:forEach items="${list}" var="dto" varStatus="status">
 								<tr>
-									<td>${dto.idcontrol_board}</td>
-									<td width="600"><a href="control/view?id=${dto.idcontrol_board}">${dto.title}</a></td>
+									<td>${count - status.index}</td>
+									<td width="600"><a href="/control/view?id=${dto.idcontrol_board}">${dto.title}</a></td>
 									<td>${profile.name}</td>
 									<td>${dto.date}</td>
 									<c:choose>

@@ -9,6 +9,7 @@ public interface IDao {
 	
 	public UserVo Profile(String username);
 	public ArrayList<BoardVo> BoardList(String username);
+	public int BoardCount(String username);
 	public void BoardWrite(String username, String title, String contents);
 	public BoardVo BoardView(String id);
 }

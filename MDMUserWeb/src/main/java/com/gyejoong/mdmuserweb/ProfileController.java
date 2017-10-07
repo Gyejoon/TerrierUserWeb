@@ -145,6 +145,7 @@ public class ProfileController {
 		
 		model.addAttribute("profile", dao.Profile(username));
 		model.addAttribute("list", dao.BoardList(username));
+		model.addAttribute("count", dao.BoardCount(username));
 		
 		return "control";
 	}
