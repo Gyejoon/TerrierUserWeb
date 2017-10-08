@@ -16,19 +16,19 @@ public class LocationParse {
 		JSONObject json = (JSONObject)JSONValue.parse(Jsonlocation);
 		GpsToAddress gps = null;
 		try {
-			gps = new GpsToAddress(Float.parseFloat((String) json.get("Latitude")),
-					Float.parseFloat((String) json.get("Longitude")));
+			gps = new GpsToAddress(Float.parseFloat(json.get("Latitude").toString()),
+					Float.parseFloat(json.get("Longitude").toString()));
 		} catch (Exception e) { // 위,경도 주소를 찾을 수 없는 경우
-			return (String)json.get("Latitude") + ":" + (String)json.get("Longitude")
+			return json.get("Latitude").toString() + ":" + json.get("Longitude").toString()
 				+ ":" + "주소가 없습니다.";
 		}
-		return (String)json.get("Latitude") + ":" + (String)json.get("Longitude")
+		return json.get("Latitude").toString() + ":" + json.get("Longitude").toString()
 			+ ":" + gps.getAddress();
 	}
 	
 	public String getEmployeeNum(){
 		JSONObject json = (JSONObject)JSONValue.parse(Jsonlocation);
-		return (String)json.get("employee_num");
+		return json.get("employee_num").toString();
 	}
 	
 }

@@ -7,18 +7,26 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
+	<security:http pattern="/**/*.js" security="none"/>
+	<security:http pattern="/**/*.css" security="none"/>
+	<security:http pattern="/**/images/*" security="none"/>
+	
+	
 	<security:http auto-config="true" disable-url-rewriting="true">
 		<security:form-login login-page="/login" 
 				username-parameter="emp"
 				password-parameter="password"
-				authentication-success-handler-ref="loginSuccessHandler"/>
+				authentication-success-handler-ref="loginSuccessHandler"
+				authentication-failure-handler-ref="loginFailureHandler"/>
 		<security:intercept-url pattern="/" access="ROLE_USER"/>
 		<security:intercept-url pattern="/profile" access="ROLE_USER"/>
 		<security:intercept-url pattern="/cloud" access="ROLE_USER"/>
 		<security:intercept-url pattern="/otp" access="ROLE_USER"/>
 		<security:intercept-url pattern="/control" access="ROLE_USER"/>
 		<security:intercept-url pattern="/lost" access="ROLE_USER"/>
-		<security:logout logout-url="/logout"/>
+		<security:intercept-url pattern="/*/*" access="ROLE_USER"/>
+		<security:logout success-handler-ref="LogoutSuccessHandler" 
+						logout-url="/logout"/>
 		<security:access-denied-handler error-page="/login" />
 	</security:http>
 	
@@ -28,9 +36,13 @@
 	
 	<context:annotation-config />
 	
+	<!-- 로그인 인증 bean -->
 	<bean id="loginSuccessHandler" class="com.gyejoong.mdmuserweb.auth.LoginSuccessHandler"/>
 	<bean id="loginFailureHandler" class="com.gyejoong.mdmuserweb.auth.LoginFailureHandler"/>
 	<bean id="preludebUserService" class="com.gyejoong.mdmuserweb.auth.PreludebUserService"/>
+	
+	<!-- 로그아웃 bean -->
+	<bean id="LogoutSuccessHandler" class="com.gyejoong.mdmuserweb.auth.LogoutSuccessHandlerimpl"/>
 	
 	<security:authentication-manager>
 		<security:authentication-provider user-service-ref="preludebUserService">

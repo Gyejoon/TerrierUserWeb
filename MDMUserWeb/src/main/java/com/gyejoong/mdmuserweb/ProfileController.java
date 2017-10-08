@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.gyejoong.mdmuserweb.dao.IDao;
 import com.gyejoong.mdmuserweb.dao.location_info;
 import com.gyejoong.mdmuserweb.gps.GpsToAddress;
+import com.gyejoong.mdmuserweb.vo.BoardVo;
 import com.gyejoong.mdmuserweb.vo.OtpVo;
 
 /**
@@ -143,6 +144,8 @@ public class ProfileController {
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
 		model.addAttribute("profile", dao.Profile(username));
+		model.addAttribute("list", dao.BoardList(username));
+		model.addAttribute("count", dao.BoardCount(username));
 		
 		return "control";
 	}
