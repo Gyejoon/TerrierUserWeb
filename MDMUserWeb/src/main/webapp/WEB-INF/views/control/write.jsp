@@ -126,10 +126,10 @@
 									<div class="field">
 							    		<label> 내용</label>
 							    		<textarea class ="form-control" id="contents" name="contents" rows="15" cols="80"></textarea>
-							  		</div>		
+							  		</div>
 									<div class="text-right">
 										<input class="btn btn-primary" type="submit" value="추가" name="" />
-										<input class="btn btn-primary" type="button" value="취소" name="" onclick="javascript:history.back()" />
+										<input class="btn btn-primary" type="reset" value="취소" name="" />
 										<input class="btn btn-primary" type="button" value="목록" name="" onclick="javascript:history.back()" />
 									</div>
 								</form>

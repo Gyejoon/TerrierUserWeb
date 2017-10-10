@@ -63,4 +63,48 @@ public class BoardController {
 		
 		return "/control/view";
 	}
+	
+	@RequestMapping(value = "/control/delete", method=RequestMethod.GET)
+	public String delete(HttpServletRequest request){
+		logger.info(request.getRemoteAddr() + "가 " + request.getParameter("id")
+		+ "번 게시물 삭제 ->" + new Date());
+		
+		String username = request.getSession().getAttribute("username").toString();
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		dao.BoardDelete(username, request.getParameter("id"));
+		
+		return "redirect:/control";
+	}
+	
+	@RequestMapping(value = "/control/update", method=RequestMethod.GET)
+	public String update(HttpServletRequest request, Model model){
+		logger.info(request.getRemoteAddr() + "가 " + request.getParameter("id")
+		+ "번 게시물 수정페이지 접속 ->" + new Date());
+		
+		String username = request.getSession().getAttribute("username").toString();
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		model.addAttribute("profile", dao.Profile(username));
+		model.addAttribute("view", dao.BoardView(request.getParameter("id")));
+		
+		return "/control/update";
+	}
+	
+	@RequestMapping(value = "/control/update", method=RequestMethod.POST)
+	public String updateview(HttpServletRequest request){
+		logger.info(request.getRemoteAddr() + "가 " + request.getParameter("id")
+		+ "번 게시물 수정 ->" + new Date());
+		
+		String username = request.getSession().getAttribute("username").toString();
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		dao.BoardUpdate(username, request.getParameter("id"), 
+				request.getParameter("title"), request.getParameter("contents"));
+		
+		return "redirect:/control";
+	}
 }
