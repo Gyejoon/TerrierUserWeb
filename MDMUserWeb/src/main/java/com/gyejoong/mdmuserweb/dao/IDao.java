@@ -11,5 +11,7 @@ public interface IDao {
 	public ArrayList<BoardVo> BoardList(String username);
 	public int BoardCount(String username);
 	public void BoardWrite(String username, String title, String contents);
+	public void BoardDelete(String username, String id);
+	public void BoardUpdate(String username, String id, String title, String contents);
 	public BoardVo BoardView(String id);
 }

@@ -118,7 +118,7 @@
 							<c:forEach items="${list}" var="dto" varStatus="status">
 								<tr>
 									<td>${count - status.index}</td>
-									<td width="600"><a href="/control/view?id=${dto.idcontrol_board}">${dto.title}</a></td>
+									<td width="400"><a href="/control/view?id=${dto.idcontrol_board}">${dto.title}</a></td>
 									<td>${profile.name}</td>
 									<td>${dto.date}</td>
 									<c:choose>
@@ -177,7 +177,7 @@
 								<a href="/control/write" class="btn btn-primary">±Û¾²±â</a>
 							</td>
 						</tr>
-						</table>											
+						</table>
 						
 
 						

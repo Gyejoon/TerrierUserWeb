@@ -108,37 +108,37 @@
 					
 					<div class="ui raised segment">
 						<a class="ui blue ribbon label">Terrier</a>
-							<span id="board_title">제어 요청 글</span>								
+							<span id="board_title">제어 요청 글 수정</span>		
 						
 						<div class="ui blue fluid card">
 							 <div class="content">
+						       		 
+								<form class="content ui form" method="post" action="/control/update">
 
 									<div class="two fields">
 							    		<div class="field">
-							      			<label style="font-weight: bold; font-size: 20px; color: #000;"> 제목</label>
-											<div style="font-size: 14px; color: #000;">
-												${view.title}
-											</div>
+							      			<label> 제목</label>
+							      			<input type="hidden" name="id" value="${view.idcontrol_board}">
+											<input class="form-control" type="text" name="title" id="title_tit"
+											value = "${view.title}">
 										</div>
 										<div class="field"></div>
 									</div>
 											
 									<div class="field">
-							    		<label style="font-weight: bold; font-size: 20px; color: #000;"> 내용</label>
-							    		<div style="font-size: 14px; color: #000;">
-											${view.contents}
-										</div>
-							    		
-							  		</div>		
+							    		<label> 내용</label>
+							    		<textarea class ="form-control" id="contents" name="contents" rows="15" cols="80">
+							    		${view.contents}
+							    		</textarea>
+							  		</div>
 									<div class="text-right">
-									<c:if test="${view.admit == 0}">
-										<a href="/control/update?id=${view.idcontrol_board}"" class="btn btn-primary" type="button" name="" >수정</a>
-										<a href="/control/delete?id=${view.idcontrol_board}" class="btn btn-primary" type="button" name="" >삭제</a>
-									</c:if>
-										<a href="#" class="btn btn-primary" type="button" name="" onclick="javascript:history.back()" >목록</a>
+										<input class="btn btn-primary" type="submit" value="수정" name="" />
+										<input class="btn btn-primary" type="reset" value="취소" name="" />
+										<input class="btn btn-primary" type="button" value="목록" name="" onclick="javascript:history.back()" />
 									</div>
+								</form>
 							</div>
-						</div>
+						</div>						
 						
 					</div>
 				</div>
@@ -170,6 +170,9 @@
 			<script src="<c:url value='/resources/js/main.js' />"></script>
 			
 			<script>
+				window.onload = function(){
+					CKEDITOR.replace('contents');
+				}
 			
 				function otpadd(){
 					$.smartPop.open({

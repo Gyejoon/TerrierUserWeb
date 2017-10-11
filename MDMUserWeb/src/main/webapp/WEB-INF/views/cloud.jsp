@@ -206,7 +206,7 @@
 				});
 				
 				$("img").click(function(){
-					
+					alert("¤¾¤·");
 				});
 				function otpadd(){
 					$.smartPop.open({
