@@ -13,10 +13,123 @@
 	</select>
 	
 	<select id="BoardList" resultType="com.gyejoong.mdmuserweb.vo.BoardVo">
-		select * from control_board 
-		where User_info_employee_num = #{username} order by 
-		idcontrol_board desc
+		SELECT *
+  		FROM (SELECT @rn := @rn + 1 rn
+             , a.*
+          FROM (SELECT *
+                  FROM control_board
+                 WHERE User_info_employee_num = #{param1}
+                ) a
+             , (SELECT @rn := 0) b
+        ) c
+		where rn between #{param2} and #{param3}
+		order by rn desc;
 	</select>
+	
+	<select id="BoardTitleSearchList" resultType="com.gyejoong.mdmuserweb.vo.BoardVo">
+		SELECT *
+  		FROM (SELECT @rn := @rn + 1 rn
+             , a.*
+          FROM (SELECT *
+                  FROM control_board
+                 WHERE User_info_employee_num = #{param1}
+                 and title like #{param2}
+                ) a
+             , (SELECT @rn := 0) b
+        ) c
+		where rn between #{param3} and #{param4}
+	    order by rn desc;
+	</select>	
+	
+	<select id="BoardContentsSearchList" resultType="com.gyejoong.mdmuserweb.vo.BoardVo">
+		SELECT *
+  		FROM (SELECT @rn := @rn + 1 rn
+             , a.*
+          FROM (SELECT *
+                  FROM control_board
+                 WHERE User_info_employee_num = #{param1}
+                 and contents like #{param2}
+                ) a
+             , (SELECT @rn := 0) b
+        ) c
+		where rn between #{param3} and #{param4}
+	    order by rn desc;
+	</select>		
+	
+	<select id="BoardDateSearchList" resultType="com.gyejoong.mdmuserweb.vo.BoardVo">
+		SELECT *
+  		FROM (SELECT @rn := @rn + 1 rn
+             , a.*
+          FROM (SELECT *
+                  FROM control_board
+                 WHERE User_info_employee_num = #{param1}
+                 and Date like #{param2}
+                ) a
+             , (SELECT @rn := 0) b
+        ) c
+		where rn between #{param3} and #{param4}
+	    order by rn desc;
+	</select>
+	
+	<select id="BoardTitleandContentsSearchList" resultType="com.gyejoong.mdmuserweb.vo.BoardVo">
+		SELECT *
+  		FROM (SELECT @rn := @rn + 1 rn
+             , a.*
+          FROM (SELECT *
+                  FROM control_board
+                 WHERE User_info_employee_num = #{param1}
+                 and title like #{param2} and contents like #{param3}
+                ) a
+             , (SELECT @rn := 0) b
+        ) c
+		where rn between #{param4} and #{param5}
+	    order by rn desc;
+	</select>
+	
+	<select id="BoardTitleandDateSearchList" resultType="com.gyejoong.mdmuserweb.vo.BoardVo">
+		SELECT *
+  		FROM (SELECT @rn := @rn + 1 rn
+             , a.*
+          FROM (SELECT *
+                  FROM control_board
+                 WHERE User_info_employee_num = #{param1}
+                 and title like #{param2} and Date like #{param3}
+                ) a
+             , (SELECT @rn := 0) b
+        ) c
+		where rn between #{param4} and #{param5}
+	    order by rn desc;
+	</select>
+	
+	<select id="BoardContentsandDateSearchList" resultType="com.gyejoong.mdmuserweb.vo.BoardVo">
+		SELECT *
+  		FROM (SELECT @rn := @rn + 1 rn
+             , a.*
+          FROM (SELECT *
+                  FROM control_board
+                 WHERE User_info_employee_num = #{param1}
+                and contents like #{param2} and Date like #{param3}
+                ) a
+             , (SELECT @rn := 0) b
+        ) c
+		where rn between #{param4} and #{param5}
+	    order by rn desc;
+	</select>
+	
+	<select id="BoardAllSearchList" resultType="com.gyejoong.mdmuserweb.vo.BoardVo">
+		SELECT *
+  		FROM (SELECT @rn := @rn + 1 rn
+             , a.*
+          FROM (SELECT *
+                  FROM control_board
+                 WHERE User_info_employee_num = #{param1}
+                 and title like #{param2} and contents like #{param3} and Date like #{param4}
+                ) a
+             , (SELECT @rn := 0) b
+        ) c
+		where rn between #{param5} and #{param6}
+	    order by rn desc;
+	</select>				
 	
 	<select id="BoardView" resultType="com.gyejoong.mdmuserweb.vo.BoardVo">
 		SELECT * FROM control_board 
@@ -28,6 +141,48 @@
 		where User_info_employee_num = #{username}
 	</select>
 	
+	<select id="BoardTitleSearchCount" resultType="int">
+		select count(*) as count from control_board
+		where User_info_employee_num = #{param1}
+		and title like #{param2}
+	</select>
+	
+	<select id="BoardContentsSearchCount" resultType="int">
+		select count(*) as count from control_board
+		where User_info_employee_num = #{param1}
+		and contents like #{param2}
+	</select>
+	
+	<select id="BoardDateSearchCount" resultType="int">
+		select count(*) as count from control_board
+		where User_info_employee_num = #{param1}
+		and Date like #{param2}
+	</select>
+	
+	<select id="BoardTitleandContentsSearchCount" resultType="int">
+		select count(*) as count from control_board
+		where User_info_employee_num = #{param1}
+		and title like #{param2} and contents like #{param3}
+	</select>
+	
+	<select id="BoardTitleandDateSearchCount" resultType="int">
+		select count(*) as count from control_board
+		where User_info_employee_num = #{param1}
+		and title like #{param2} and Date like #{param3}
+	</select>
+
+	<select id="BoardContentsandDateSearchCount" resultType="int">
+		select count(*) as count from control_board
+		where User_info_employee_num = #{param1}
+		and contents like #{param2} and Date like #{param3}
+	</select>
+	
+	<select id="BoardAllSearchCount" resultType="int">
+		select count(*) as count from control_board
+		where User_info_employee_num = #{param1}
+		and title like #{param2} and contents like #{param3} and Date like #{param4};
+	</select>
+					
 	<insert id="BoardWrite">
 		insert into control_board (User_info_employee_num, 
 		title, contents) values (#{param1}, #{param2}, #{param3})

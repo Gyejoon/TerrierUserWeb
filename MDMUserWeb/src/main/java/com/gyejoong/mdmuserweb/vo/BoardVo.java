@@ -3,6 +3,7 @@ package com.gyejoong.mdmuserweb.vo;
 import java.sql.Timestamp;
 
 public class BoardVo {
+	private int rn;
 	private int idcontrol_board;
 	private int User_info_employee_num;
 	private String title;
@@ -10,6 +11,12 @@ public class BoardVo {
 	private short admit;
 	private Timestamp Date;
 	
+	public int getRn() {
+		return rn;
+	}
+	public void setRn(int rn) {
+		this.rn = rn;
+	}
 	public int getIdcontrol_board() {
 		return idcontrol_board;
 	}

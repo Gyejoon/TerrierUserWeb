@@ -205,7 +205,7 @@
 				    $("div.custom-menu").hide();
 				});
 				
-				$("img").click(function(){
+				$("div.custom-menu").click(function(){
 					alert("¤¾¤·");
 				});
 				function otpadd(){

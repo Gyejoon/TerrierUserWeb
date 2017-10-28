@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<title>»ç¿ø ÆäÀÌÁö</title>
+		<title>ì‚¬ì› í˜ì´ì§€</title>
 		<meta charset="utf-8" />
 		<!-- <meta name="viewport" content="width=device-width, initial-scale=1" />-->
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -75,9 +75,9 @@
 						<nav id="nav">
 							<ul>
 								<li><a href="${pageContext.request.contextPath}/profile" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/cloud" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-cloud">¹é¾÷°ü¸®</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/lost" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-phone">ºĞ½Ç°ü¸®</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/control" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Á¦¾î¿äÃ»</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/cloud" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-cloud">ë°±ì—…ê´€ë¦¬</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/lost" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-phone">ë¶„ì‹¤ê´€ë¦¬</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/control" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">ì œì–´ìš”ì²­</span></a></li>
 							</ul>
 						</nav>
 				</div>
@@ -87,8 +87,8 @@
 						<c:if test="${profile.OTP eq 'NO'}">
        						<li><a href="#" onclick="javascript:otpadd()" class="icon fa-lock"><span class="label">OTP</span></a></li>
        					</c:if>
-						<li><a href="#" onclick="javascript:config()" class="icon fa-cog"><span class="label">¼³Á¤</span></a></li>
-						<li><a href="${pageContext.request.contextPath}/logout" class="icon fa-sign-out"><span class="label">·Î±×¾Æ¿ô</span></a></li>
+						<li><a href="#" onclick="javascript:config()" class="icon fa-cog"><span class="label">ì„¤ì •</span></a></li>
+						<li><a href="${pageContext.request.contextPath}/logout" class="icon fa-sign-out"><span class="label">ë¡œê·¸ì•„ì›ƒ</span></a></li>
 					</ul>
 				</div>
 
@@ -102,85 +102,125 @@
 					
 					<div class="ui raised segment">
 						<a class="ui blue ribbon label">Terrier</a>
-							<span id="board_title">Á¦¾î ¿äÃ» ³»¿ª</span>
+							<span id="board_title">ì œì–´ ìš”ì²­ ë‚´ì—­</span>
 						
 						<table class="table table-hover">
 							<thead>
 							<tr>
-								<th>¹øÈ£</th>
-								<th>Á¦¸ñ</th>
-								<th>ÀÛ¼ºÀÚ</th>
-								<th>ÀÛ¼ºÀÏ</th>
-								<th>½ÂÀÎ¿©ºÎ</th>
+								<th>ë²ˆí˜¸</th>
+								<th>ì œëª©</th>
+								<th>ì‘ì„±ì</th>
+								<th>ì‘ì„±ì¼</th>
+								<th>ìŠ¹ì¸ì—¬ë¶€</th>
 							</tr>
 							</thead>
 							<tbody>
-							<c:forEach items="${list}" var="dto" varStatus="status">
-								<tr>
-									<td>${count - status.index}</td>
-									<td width="400"><a href="/control/view?id=${dto.idcontrol_board}">${dto.title}</a></td>
-									<td>${profile.name}</td>
-									<td>${dto.date}</td>
-									<c:choose>
-										<c:when test="${dto.admit == 0}">
-											<td>¹ÌÈ®ÀÎ</td>
-										</c:when>
-										<c:when test="${dto.admit == 1}">
-											<td>½ÂÀÎ¿Ï·á</td>
-										</c:when>
-										<c:when test="${dto.admit == 2}">
-											<td>½ÂÀÎ°ÅºÎ</td>
-										</c:when>
-									</c:choose>
-								</tr>
-							</c:forEach>																																
+							<c:choose>
+								<c:when test="${count <= 0}">
+									<tr>
+										<td></td>
+										<td></td>
+										<td><c:out value="ìš”ì²­ ë‚´ì—­ì´  ì—†ìŠµë‹ˆë‹¤."></c:out></td>
+									</tr>
+								</c:when>
+								<c:when test="${count > 0}">
+								<c:forEach items="${list}" var="dto">
+									<tr>
+										<td>${dto.rn}</td>
+										<td width="400"><a href="/control/view?id=${dto.idcontrol_board}">${dto.title}</a></td>
+										<td>${profile.name}</td>
+										<td>${dto.date}</td>
+										<c:choose>
+											<c:when test="${dto.admit == 0}">
+												<td>ë¯¸í™•ì¸</td>
+											</c:when>
+											<c:when test="${dto.admit == 1}">
+												<td>ìŠ¹ì¸ì™„ë£Œ</td>
+											</c:when>
+											<c:when test="${dto.admit == 2}">
+												<td>ìŠ¹ì¸ê±°ë¶€</td>
+											</c:when>
+										</c:choose>
+									</tr>
+								</c:forEach>
+								</c:when>
+							</c:choose>
 							</tbody>
 						</table>
+						<c:set var="pageCount" value="${count/pageSize+(count%pageSize==0?0:1)}"/>
+						<c:set var="startPage" value="${pageGroupSize*(numPageGroup-1)+1}"/>
+						<c:set var="endPage" value="${startPage + pageGroupSize-1}"/>
+						<c:if test="${count > 0}">
+						
+						<c:if test="${endPage > pageCount}">
+							<c:set var="endPage" value="${pageCount}"/>
+						</c:if>
+						
 						<div class="text-center">
 							<ul class="pagination pagination-lg">
-								<li class="disabled">
-								<a href="#" aria-label="Previous">
-									<span aria-hidden="true">&laquo;</span>
-								</a>
-								</li>
-								<li><a href="#">1</a></li>
-								<li class="active"><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
+							<c:if test="${numPageGroup > 1}">
 								<li>
-									<a href="#" aria-label="Next">
+									<a id="leftpage" href="/control?pageNum=${(numPageGroup-2)*pageGroupSize+1}" aria-label="Previous">
+										<span aria-hidden="true">&laquo;</span>
+									</a>
+								</li>
+							</c:if>
+								<c:forEach var="i" begin="${startPage}" end="${endPage}">
+									<c:choose>
+										<c:when test="${currentPage == i}">
+											<li class="active"><a href="#">${i}</a></li>
+										</c:when>
+										<c:when test="${currentPage != i}">
+											<li><a id="paging_${i}" href="/control?pageNum=${i}">${i}</a></li>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+								<c:if test="${numPageGroup < pageGroupCount}">
+								<li>
+									<a id="rightpage" href="/control?pageNum=${numPageGroup*pageGroupSize+1}" aria-label="Next">
 										<span aria-hidden="true">&raquo;</span>
 									</a>
-								</li>						
+								</li>		
+								</c:if>
 							</ul>
 						</div>
+						</c:if>
 						<table>
 						<tr>
 							<td>
-							<form class="form-inline">
+							<form class="form-inline" id="form_board" method="get" action="/control/search">
 							  <div class="form-group">
-							    <select class="form-control">
-							    	<option>Á¦¸ñ</option>
-							    	<option>Á¦¸ñ+³»¿ë</option>
-							    	<option>³»¿ë</option>
-							    </select>
+							    <div class="form-control" style="font-weight: bold; border: thin; color: #000;">ì œëª©</div>
+								    <select class="form-control" name="search_tit" id="search_tit">
+								    	<option value="">ì œëª© ì„ íƒ</option>
+								      	<option>ì™€ì´íŒŒì´ ì°¨ë‹¨</option>
+										<option>ì™€ì´íŒŒì´ í—ˆìš©</option>
+										<option>ë¸”ë£¨íˆ¬ìŠ¤ ì°¨ë‹¨</option>
+										<option>ë¸”ë£¨íˆ¬ìŠ¤ í—ˆìš©</option>
+										<option>ì¹´ë©”ë¼ ì°¨ë‹¨</option>
+										<option>ì¹´ë©”ë¼ í—ˆìš©</option>
+										<option>í…Œë”ë§ ì°¨ë‹¨</option>
+										<option>í…Œë”ë§ í—ˆìš©</option>
+										<option>ìŒì„±ë…¹ìŒ í—ˆìš©</option>
+										<option>ìŒì„±ë…¹ìŒ ì°¨ë‹¨</option>
+								    </select>
+							    <div class="form-control" style="font-weight: bold; border: thin; color: #000;">ë‚´ìš©</div>
 							    <div class="input-group">
-							      <input type="text" class="form-control" name="search">
+							      <input type="text" class="form-control" name="search_con" id="search_con" placeholder="ë‚´ìš© ì…ë ¥">
 							    </div>
-							    <button type="submit" class="btn btn-primary">°Ë»ö</button>
-							  </div>
-							  
+							    <div class="form-control" style="font-weight: bold; border: thin; color: #000;">ì‘ì„±ì¼</div>
+							    <div class="input-group">
+							      <input type="date" class="form-control" name="search_dat" id="search_dat" placeholder="ë…„ë„-ì›”-ì¼">
+							    </div>
+							    <a href="#" class="btn btn-primary" id="search_button">ê²€ìƒ‰</a>
+							</div>
 							</form>
 							</td>					
 							<td class="text-right">
-								<a href="/control/write" class="btn btn-primary">±Û¾²±â</a>
+								<a href="/control/write" class="btn btn-primary">ê¸€ì“°ê¸°</a>
 							</td>
 						</tr>
 						</table>
-						
-
-						
 					</div>
 				</div>
 					
@@ -210,6 +250,7 @@
 			<script src="<c:url value='/resources/js/main.js' />"></script>
 			
 			<script>
+			
 				function otpadd(){
 					$.smartPop.open({
 						background : "black", 
@@ -226,6 +267,50 @@
 						url: '/config'
 					});
 				}
+				
+				$("#search_button").click(function(){
+					$("#form_board").submit();
+				});
+				
+				$(function(){
+					var url = location.href;
+					
+					var str = url.substring(22, url.indexOf('?'));
+					var param = url.slice(url.indexOf('?')+1);
+					var search_param = param.split('&');
+					
+					if(str == 'control/search'){
+						var pageNumhref, pageNum;
+						var leftgroupNumhref, rightgroupNumhref, groupNum;
+						var endPage = ${endPage};
+						for(var i=1; i<=endPage; i++){
+							pageNumhref = $("#paging_" + i).attr("href");
+							if(pageNumhref != undefined){
+								pageNum = pageNumhref.slice(pageNumhref.indexOf('?')+1);
+								$("#paging_" + i).attr("href", "?" + search_param[0]
+									+ "&" + search_param[1] + "&" + search_param[2]
+									+ "&" + pageNum);
+							}
+						}
+						leftgroupNumhref = $("#leftpage").attr("href");
+						rightgroupNumhref = $("#rightpage").attr("href")
+						
+						if(leftgroupNumhref != undefined){
+							groupNum = leftgroupNumhref.slice(leftgroupNumhref.indexOf('?')+1);
+							$("#leftpage").attr("href", "?" + search_param[0]
+							+ "&" + search_param[1] + "&" + search_param[2]
+							+ "&" + groupNum);
+						}
+						if(rightgroupNumhref != undefined){
+							groupNum = rightgroupNumhref.slice(rightgroupNumhref.indexOf('?')+1);
+							$("#rightpage").attr("href", "?" + search_param[0]
+							+ "&" + search_param[1] + "&" + search_param[2]
+							+ "&" + groupNum);
+						}
+						
+					}
+				});
+
 			</script>
 
 	</body>

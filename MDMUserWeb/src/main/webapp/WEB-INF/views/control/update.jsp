@@ -113,14 +113,24 @@
 						<div class="ui blue fluid card">
 							 <div class="content">
 						       		 
-								<form class="content ui form" method="post" action="/control/update">
+								<form class="content ui form" method="post" action="/control/update" id="form_update">
 
 									<div class="two fields">
 							    		<div class="field">
 							      			<label> 제목</label>
 							      			<input type="hidden" name="id" value="${view.idcontrol_board}">
-											<input class="form-control" type="text" name="title" id="title_tit"
-											value = "${view.title}">
+											<select class="form-control" name="title" id="title_tit">
+												<option>와이파이 차단</option>
+												<option>와이파이 허용</option>
+												<option>블루투스 차단</option>
+												<option>블루투스 허용</option>
+												<option>카메라 차단</option>
+												<option>카메라 허용</option>
+												<option>테더링 차단</option>
+												<option>테더링 허용</option>
+												<option>음성녹음 허용</option>
+												<option>음성녹음 차단</option>
+											</select>
 										</div>
 										<div class="field"></div>
 									</div>
@@ -132,9 +142,8 @@
 							    		</textarea>
 							  		</div>
 									<div class="text-right">
-										<input class="btn btn-primary" type="submit" value="수정" name="" />
-										<input class="btn btn-primary" type="reset" value="취소" name="" />
-										<input class="btn btn-primary" type="button" value="목록" name="" onclick="javascript:history.back()" />
+										<a href="#" id="modif" class="btn btn-primary" name="" >수정</a>
+										<a href="#" class="btn btn-primary" name="" onclick="javascript:history.back()" >취소</a>
 									</div>
 								</form>
 							</div>
@@ -172,8 +181,9 @@
 			<script>
 				window.onload = function(){
 					CKEDITOR.replace('contents');
+					$("#title_tit").val("${view.title}").attr("selected", "selected");
 				}
-			
+				
 				function otpadd(){
 					$.smartPop.open({
 						background : "black", 
@@ -191,6 +201,13 @@
 						url: '/config'
 					});
 				}
+				
+				$("#modif").click(function(){
+					if(!confirm("수정하시겠습니까?")){
+						return;
+					}
+					$("#form_update").submit();
+				});
 
 			</script>
 

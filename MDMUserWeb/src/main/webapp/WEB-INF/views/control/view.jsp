@@ -132,7 +132,7 @@
 							  		</div>		
 									<div class="text-right">
 									<c:if test="${view.admit == 0}">
-										<a href="/control/update?id=${view.idcontrol_board}"" class="btn btn-primary" type="button" name="" >수정</a>
+										<a href="/control/update?id=${view.idcontrol_board}" class="btn btn-primary" type="button" name="" >수정</a>
 										<a href="/control/delete?id=${view.idcontrol_board}" class="btn btn-primary" type="button" name="" >삭제</a>
 									</c:if>
 										<a href="#" class="btn btn-primary" type="button" name="" onclick="javascript:history.back()" >목록</a>
