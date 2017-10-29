@@ -10,6 +10,7 @@ public class BoardVo {
 	private String contents;
 	private short admit;
 	private Timestamp Date;
+	private String file_exist;
 	
 	public int getRn() {
 		return rn;
@@ -52,5 +53,11 @@ public class BoardVo {
 	}
 	public void setDate(Timestamp date) {
 		Date = date;
+	}
+	public String getFile_exist() {
+		return file_exist;
+	}
+	public void setFile_exist(String file_exist) {
+		this.file_exist = file_exist;
 	}
 }

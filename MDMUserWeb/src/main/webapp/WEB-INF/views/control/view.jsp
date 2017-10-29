@@ -45,7 +45,6 @@
 			}
 			
 			table {
-				margin-top: 30px;
 				font-size: 16px;
 				color: #000;
 			}
@@ -112,28 +111,57 @@
 						
 						<div class="ui blue fluid card">
 							 <div class="content">
-
-									<div class="two fields">
-							    		<div class="field">
-							      			<label style="font-weight: bold; font-size: 20px; color: #000;"> 제목</label>
-											<div style="font-size: 14px; color: #000;">
-												${view.title}
-											</div>
-										</div>
-										<div class="field"></div>
-									</div>
-											
-									<div class="field">
-							    		<label style="font-weight: bold; font-size: 20px; color: #000;"> 내용</label>
-							    		<div style="font-size: 14px; color: #000;">
-											${view.contents}
-										</div>
-							    		
-							  		</div>		
+							     <table class="table table-hover">
+							        <colgroup>
+							            <col width="15%"/>
+							            <col width="35%"/>
+							            <col width="15%"/>
+							            <col width="35%"/>
+							        </colgroup>
+							        <tbody>
+							            <tr>
+							                <th scope="row">글 번호</th>
+							                <td>${view.idcontrol_board}</td>
+							                <th scope="row">승인 여부</th>
+							           		<c:choose>
+												<c:when test="${view.admit == 0}">
+													<td>미확인</td>
+												</c:when>
+												<c:when test="${view.admit == 1}">
+													<td>승인완료</td>
+												</c:when>
+												<c:when test="${view.admit == 2}">
+													<td>승인거부</td>
+												</c:when>
+											</c:choose>
+							            </tr>
+							            <tr>
+							                <th scope="row">작성자</th>
+							                <td>${profile.name}</td>
+							                <th scope="row">작성시간</th>
+							                <td>${view.date}</td>
+							            </tr>
+							            <tr>
+							                <th scope="row">제목</th>
+							                <td colspan="3">${view.title}</td>
+							            </tr>
+							            <tr id="fileform">
+							                <th scope="row">첨부파일</th>
+							                <td colspan="3">
+								                <input type="hidden" name="idcontrol_board_file" id="idcontrol_board_file" value="${file.idcontrol_board_file}">
+								                <a href="#" id="file" name="file">${file.original_file_name}</a>
+								                <label id="size">${file.file_size}</label>
+							                </td>
+							            </tr>
+							            <tr>
+							                <td colspan="4">${view.contents}</td>
+							            </tr>            
+							        </tbody>
+							    </table>
 									<div class="text-right">
 									<c:if test="${view.admit == 0}">
 										<a href="/control/update?id=${view.idcontrol_board}" class="btn btn-primary" type="button" name="" >수정</a>
-										<a href="/control/delete?id=${view.idcontrol_board}" class="btn btn-primary" type="button" name="" >삭제</a>
+										<a href="/control/delete?id=${view.idcontrol_board}" class="btn btn-primary" type="button" name="" id="delete">삭제</a>
 									</c:if>
 										<a href="#" class="btn btn-primary" type="button" name="" onclick="javascript:history.back()" >목록</a>
 									</div>
@@ -188,6 +216,32 @@
 						url: '/config'
 					});
 				}
+				
+				$(document).ready(function(){
+					var ori_size = $("#size").text();
+					if(ori_size != ""){
+						ori_size /= 1024;
+						ori_size = ori_size.toFixed(2);
+						$("#size").text("(" + ori_size + "kb)");
+					}
+				});
+				
+				$("#file").click(function(){
+					var form = $("<form></form");
+					form.attr("action", "<c:url value='/common/downloadFile' />");
+					form.attr("method", "get");
+					form.appendTo("body");
+					
+					form.append($("#idcontrol_board_file"));
+					form.submit();
+				});
+				
+				$("#delete").click(function(e){
+					if(!confirm("제어요청 글을 삭제하시겠습니까?")){
+						e.preventDefault();
+						return;
+					}
+				});
 
 			</script>
 

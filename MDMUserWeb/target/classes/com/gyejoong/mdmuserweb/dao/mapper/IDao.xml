@@ -136,6 +136,11 @@
 		where idcontrol_board=#{id}
 	</select>
 	
+	<select id="BoardFileView" resultType="com.gyejoong.mdmuserweb.vo.BoardFileVo">
+		SELECT * FROM control_board_file 
+		where control_board_idcontrol_board=#{id} and DEL_GB = 'N'
+	</select>
+	
 	<select id="BoardCount" resultType="int">
 		SELECT count(*) as count FROM control_board 
 		where User_info_employee_num = #{username}
@@ -180,12 +185,20 @@
 	<select id="BoardAllSearchCount" resultType="int">
 		select count(*) as count from control_board
 		where User_info_employee_num = #{param1}
-		and title like #{param2} and contents like #{param3} and Date like #{param4};
+		and title like #{param2} and contents like #{param3} and Date like #{param4}
 	</select>
 					
-	<insert id="BoardWrite">
+	<insert id="BoardWrite" parameterType="com.gyejoong.mdmuserweb.vo.BoardVo" 
+		useGeneratedKeys="true" keyProperty="idcontrol_board">
 		insert into control_board (User_info_employee_num, 
-		title, contents) values (#{param1}, #{param2}, #{param3})
+		title, contents, file_exist) values (#{User_info_employee_num}, #{title}, #{contents}, #{file_exist})
+	</insert>
+	
+	<insert id="BoardFileInsert" parameterType="hashmap">
+		insert into control_board_file (control_board_idcontrol_board,
+		original_file_name, stored_file_name, file_size, create_id) values
+		(#{control_board_idcontrol_board}, #{original_file_name}, #{stored_file_name},
+		#{file_size}, #{create_id});
 	</insert>
 	
 	<delete id="BoardDelete">

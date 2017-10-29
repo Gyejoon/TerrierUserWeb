@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.gyejoong.mdmuserweb.dao.CommonDao">
+	<select id="selectFileInfo" parameterType="com.gyejoong.mdmuserweb.vo.BoardFileVo" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				stored_file_name,
+				original_file_name
+			FROM
+				control_board_file
+			WHERE
+				idcontrol_board_file = #{idcontrol_board_file}
+		]]>
+	</select>
+	
+</mapper>

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.http.HttpEntity;
@@ -33,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.gyejoong.mdmuserweb.dao.IDao;
 import com.gyejoong.mdmuserweb.dao.location_info;
 import com.gyejoong.mdmuserweb.gps.GpsToAddress;
+import com.gyejoong.mdmuserweb.service.CommonService;
 import com.gyejoong.mdmuserweb.vo.BoardVo;
 import com.gyejoong.mdmuserweb.vo.OtpVo;
 
@@ -46,6 +48,10 @@ public class ProfileController {
 	
 	@Autowired
 	SqlSession sqlSession;
+	
+	@Resource(name="commonService")
+	private CommonService commonService;
+	
 	
 	@RequestMapping(value = "/cloud", method = RequestMethod.GET)
 	public String cloud(HttpServletRequest request, Model model){
@@ -136,7 +142,7 @@ public class ProfileController {
 	}
 	
 	@RequestMapping(value = "/control", method = RequestMethod.GET)
-	public String control(HttpServletRequest request, Model model){
+	public String control(HttpServletRequest request, Model model) throws Exception{
 		logger.info(request.getRemoteAddr() + "가 /control 경로로 접속함->" + new Date());
 		
 		int pageSize = 10;
@@ -199,5 +205,6 @@ public class ProfileController {
 		
 		return "config";
 	}
+	
 	
 }

@@ -124,10 +124,15 @@
 									</tr>
 								</c:when>
 								<c:when test="${count > 0}">
-								<c:forEach items="${list}" var="dto">
+								<c:forEach items="${list}" var="dto" varStatus="status">
 									<tr>
 										<td>${dto.rn}</td>
-										<td width="400"><a href="/control/view?id=${dto.idcontrol_board}">${dto.title}</a></td>
+										<td width="400">
+										<a href="/control/view?id=${dto.idcontrol_board}">${dto.title}</a>
+										<c:if test="${dto.file_exist == 'Y'}">
+											<label class="icon fa-save" id="icon"></label>
+										</c:if>
+										</td>
 										<td>${profile.name}</td>
 										<td>${dto.date}</td>
 										<c:choose>
@@ -250,7 +255,6 @@
 			<script src="<c:url value='/resources/js/main.js' />"></script>
 			
 			<script>
-			
 				function otpadd(){
 					$.smartPop.open({
 						background : "black", 
@@ -275,10 +279,9 @@
 				$(function(){
 					var url = location.href;
 					
-					var str = url.substring(22, url.indexOf('?'));
+					var str = url.substring(url.indexOf('control'), url.indexOf('?'));
 					var param = url.slice(url.indexOf('?')+1);
 					var search_param = param.split('&');
-					
 					if(str == 'control/search'){
 						var pageNumhref, pageNum;
 						var leftgroupNumhref, rightgroupNumhref, groupNum;

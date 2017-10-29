@@ -2,7 +2,9 @@ package com.gyejoong.mdmuserweb;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
@@ -13,8 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gyejoong.mdmuserweb.dao.IDao;
+import com.gyejoong.mdmuserweb.service.BoardService;
+import com.gyejoong.mdmuserweb.vo.BoardFileVo;
 import com.gyejoong.mdmuserweb.vo.BoardVo;
 
 @Controller
@@ -23,6 +29,9 @@ public class BoardController {
 	
 	@Autowired
 	SqlSession sqlSession;
+	
+	@Resource(name="BoardService")
+	BoardService boardService;
 	
 	@RequestMapping(value="/control/write", method = RequestMethod.GET)
 	public String write(HttpServletRequest request, Model model) {
@@ -38,14 +47,14 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/control/write", method=RequestMethod.POST)
-	public String post(HttpServletRequest request) {
+	public String post(HttpServletRequest request, BoardVo board) throws Exception {
 		logger.info(request.getRemoteAddr() + "가 글작성 ->" + new Date());
 		
 		String username = request.getSession().getAttribute("username").toString();
 		
-		IDao dao = sqlSession.getMapper(IDao.class);
+		board.setUser_info_employee_num(Integer.parseInt(username));
 		
-		dao.BoardWrite(username, request.getParameter("title"), request.getParameter("contents"));
+		boardService.insertFileBoard(board, request);
 		
 		return "redirect:/control";
 	}
@@ -55,9 +64,11 @@ public class BoardController {
 		logger.info(request.getRemoteAddr() + "가 " + request.getParameter("id")
 				+ "번 게시물 열람 ->" + new Date());
 		
-		String username = request.getSession().getAttribute("username").toString();		
+		String username = request.getSession().getAttribute("username").toString();
+		String id = request.getParameter("id");
 		IDao dao = sqlSession.getMapper(IDao.class);
-		BoardVo board = dao.BoardView(request.getParameter("id"));
+		BoardVo board = dao.BoardView(id);
+		BoardFileVo boardFile = dao.BoardFileView(id);
 		
 		if(board != null){
 			// 보려는 게시글의 소유자가 현재 로그인한 사용자인지 확인
@@ -65,6 +76,7 @@ public class BoardController {
 				
 				model.addAttribute("profile", dao.Profile(username));
 				model.addAttribute("view", board);
+				model.addAttribute("file", boardFile);
 				
 				return "/control/view";
 			} else {
