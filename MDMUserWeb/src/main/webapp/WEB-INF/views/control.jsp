@@ -279,10 +279,9 @@
 				$(function(){
 					var url = location.href;
 					
-					var str = url.substring(22, url.indexOf('?'));
+					var str = url.substring(url.indexOf('control'), url.indexOf('?'));
 					var param = url.slice(url.indexOf('?')+1);
 					var search_param = param.split('&');
-					
 					if(str == 'control/search'){
 						var pageNumhref, pageNum;
 						var leftgroupNumhref, rightgroupNumhref, groupNum;
