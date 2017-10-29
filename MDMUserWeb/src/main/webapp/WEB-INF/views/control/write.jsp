@@ -207,7 +207,9 @@
 					});
 				}
 				
-				$("#board_add").click(function(){
+				$("#board_add").click(function(e){
+					e.preventDefault();
+					
 					if($("#title_tit").val() == ""){
 						alert("제목을 입력해 주세요.");
 						return;

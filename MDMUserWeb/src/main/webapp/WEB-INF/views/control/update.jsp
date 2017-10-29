@@ -202,8 +202,9 @@
 					});
 				}
 				
-				$("#modif").click(function(){
+				$("#modif").click(function(e){
 					if(!confirm("수정하시겠습니까?")){
+						e.preventDefault();
 						return;
 					}
 					$("#form_update").submit();
