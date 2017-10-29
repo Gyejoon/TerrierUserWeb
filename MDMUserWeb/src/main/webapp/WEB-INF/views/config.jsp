@@ -8,6 +8,8 @@
 		<meta charset="utf-8" />
 		<!--<meta name="viewport" content="width=device-width, initial-scale=1" /> -->
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap-theme.css' />" />
+		<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/semantic.min.css' />" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
@@ -35,9 +37,17 @@
 			}
 			
 			#board_title {
-				font_size:1.2em;
+				font-size:1.4em;
 				font-weight:bold;
 				color:teal;
+			}
+			
+			#frm {
+				margin-top: 30px;
+			}
+			
+			#comm{
+				font-size: 7px;
 			}
 		</style>
 	</head>
@@ -51,7 +61,6 @@
 					<div class="ui raised segment">
 						<a class="ui blue ribbon label">Terrier</a>
 							<span id="board_title">¼³Á¤</span>
-
 					</div>
 				</div>
 					
@@ -59,6 +68,7 @@
 
 		<!-- Scripts -->
 			<script src="<c:url value='/resources/js/jquery.min.js'/>"></script>
+			<script src="<c:url value='/resources/js/jquery-1.7.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/jquery.scrolly.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/jquery.scrollzer.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/skel.min.js'/>"></script>
@@ -67,6 +77,8 @@
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="<c:url value='/resources/js/main.js' />"></script>
 			
+			<script>
+			</script>
 
 	</body>
 </html>

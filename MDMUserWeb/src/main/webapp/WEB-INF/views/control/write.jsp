@@ -58,8 +58,12 @@
 			
 			.form-control {
 				font-size: 14px;
-				width: 3000px;
+				width: 100%;
 				height: 40px;
+			}
+			
+			#file_id {
+				width: 100%;
 			}
 			
 		</style>
@@ -113,7 +117,7 @@
 						<div class="ui blue fluid card">
 							 <div class="content">
 						       		 
-								<form class="content ui form" id="form_board" method="post" action="/control/write">
+								<form class="content ui form" id="form_board" method="post" action="/control/write" enctype="multipart/form-data">
 
 									<div class="two fields">
 							    		<div class="field">
@@ -137,6 +141,11 @@
 									<div class="field">
 							    		<label> 내용</label>
 							    		<textarea class ="form-control" id="contents_id" name="contents" rows="15" cols="80"></textarea>
+							  		</div>
+							  		
+							  		<div class="field">
+							  			<label> 첨부파일</label>
+							  			<input type="file" class="form-control" name="file" id="file_id"> 
 							  		</div>
 									<div class="text-right">
 										<a href="#" class="btn btn-primary" id="board_add" name="">추가</a>

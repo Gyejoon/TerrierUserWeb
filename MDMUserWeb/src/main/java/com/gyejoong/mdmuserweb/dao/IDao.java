@@ -1,7 +1,9 @@
 package com.gyejoong.mdmuserweb.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
+import com.gyejoong.mdmuserweb.vo.BoardFileVo;
 import com.gyejoong.mdmuserweb.vo.BoardVo;
 import com.gyejoong.mdmuserweb.vo.UserVo;
 
@@ -24,8 +26,10 @@ public interface IDao {
 	public int BoardTitleandDateSearchCount(String username, String title, String date);
 	public int BoardContentsandDateSearchCount(String username, String contents, String date);
 	public int BoardAllSearchCount(String username, String title, String contents, String date);
-	public void BoardWrite(String username, String title, String contents);
+	public void BoardWrite(BoardVo board);
+	public void BoardFileInsert(Map<String, Object> map);
 	public void BoardDelete(String username, String id);
 	public void BoardUpdate(String username, String id, String title, String contents);
 	public BoardVo BoardView(String id);
+	public BoardFileVo BoardFileView(String id);
 }
