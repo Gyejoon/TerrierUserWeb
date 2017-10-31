@@ -226,7 +226,9 @@
 					}
 				});
 				
-				$("#file").click(function(){
+				$("#file").click(function(e){
+					e.preventDefault();
+					
 					var form = $("<form></form");
 					form.attr("action", "<c:url value='/common/downloadFile' />");
 					form.attr("method", "get");

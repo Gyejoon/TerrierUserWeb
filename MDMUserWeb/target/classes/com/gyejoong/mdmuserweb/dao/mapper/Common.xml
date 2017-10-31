@@ -16,4 +16,22 @@
 		]]>
 	</select>
 	
+	<select id="selectPhoneInfo" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				name,
+				phone_num
+			FROM
+				device_phone
+			WHERE
+				Device_info_Id = (
+					SELECT
+						Id
+					FROM
+						device_info
+					WHERE User_info_employee_num = #{username}
+				)
+		]]>
+	</select>
+	
 </mapper>

@@ -16,17 +16,32 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 public class LogoutSuccessHandlerimpl extends AbstractAuthenticationTargetUrlRequestHandler
 			implements LogoutSuccessHandler{
 
-	private static final Logger logger = LoggerFactory.getLogger(LogoutSuccessHandlerimpl.class);	
+	private static final Logger logger = LoggerFactory.getLogger(LogoutSuccessHandlerimpl.class);
+	private String defaultUrl;
 	
+	public String getDefaultUrl() {
+		return defaultUrl;
+	}
+
+
+	public void setDefaultUrl(String defaultUrl) {
+		this.defaultUrl = defaultUrl;
+	}
+
+
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 		
+		if(authentication != null) { // 세션에 정보가 없는 경우 (시간 만료의 경우)
+			logger.info(request.getRemoteAddr() + "에서 " + authentication.getName() + "가 " + 
+					"로그아웃함->" + new Date());
+			
+			super.handle(request, response, authentication);
+		} else {
+			response.sendRedirect(defaultUrl);
+		}
 		
-		logger.info(request.getRemoteAddr() + "에서 " + authentication.getName() + "가 " + 
-				"로그아웃함->" + new Date());
-		
-		super.handle(request, response, authentication);
 	}
 
 }

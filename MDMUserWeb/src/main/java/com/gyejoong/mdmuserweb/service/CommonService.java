@@ -8,4 +8,5 @@ import com.gyejoong.mdmuserweb.vo.BoardVo;
 
 public interface CommonService {
 	public Map<String, Object> selectFileInfo(BoardFileVo boardFile) throws Exception;
+	public List<Map<String, Object>> selectPhoneInfo(String username) throws Exception;
 }

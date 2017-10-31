@@ -6,11 +6,11 @@
 	<head>
 		<title>사원 페이지</title>
 		<meta charset="utf-8" />
-		<!--<meta name="viewport" content="width=device-width, initial-scale=1" />-->
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1" /> -->
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="<c:url value='/resources/css/jquery.smartPop.css' />" />
+		<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap-theme.css' />" />
+		<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/semantic.min.css' />" />
-		<link rel="stylesheet" href="<c:url value='/resources/css/main.css' />" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<style>
@@ -37,193 +37,90 @@
 			}
 			
 			#board_title {
-				font_size:1.2em;
+				font-size:1.4em;
 				font-weight:bold;
 				color:teal;
 			}
 			
-			#cardlayout {
-				margin-top: 10px;
+			#frm {
+				margin-top: 30px;
 			}
 			
-			img {
-				height: 200px;
+			#comm{
+				font-size: 7px;
 			}
-			
-			#imagename {
-				color: #444;
-				font-size: 15px;
-				font-family: 굴림;
-				text-align: center;
-			}
-			
-			#imagecard {
-				
-			}
-			
-			.custom-menu {
-			    z-index:1000;
-			    position: absolute;
-			    background-color:#fff;
-			    border: 1px solid black;
-			}
-			
-			.custom-menu:hover {
-				color: #000;
-			}
-			
-			
 		</style>
 	</head>
 	<body>
-
-		<!-- Header -->
-			<div id="header">
-				<div class="top">
-
-					<!-- Logo -->
-						<div id="logo">
-							<span class="image avatar48"><img src="<c:url value='/resources/images/avatar.jpg' />" alt="" /></span>
-							<h1 id="title"><c:out value="${profile.name}"/></h1>
-							<p><c:out value="${profile.department}"/>&nbsp;<c:out value="${profile.rank}"/></p>
-						</div>
-
-					<!-- Nav -->
-						<nav id="nav">
-							<ul>
-								<li><a href="${pageContext.request.contextPath}/profile" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/cloud" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-cloud">백업관리</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/lost" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-phone">분실관리</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/control" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">제어요청</span></a></li>
-							</ul>
-						</nav>
-
-				</div>
-
-				<div class="bottom">
-					<ul class="icons">
-						<c:if test="${profile.OTP eq 'NO'}">
-       						<li><a href="#" onclick="javascript:otpadd()" class="icon fa-lock"><span class="label">OTP</span></a></li>
-       					</c:if>
-						<li><a href="#" onclick="javascript:config()" class="icon fa-cog"><span class="label">설정</span></a></li>
-						<li><a href="${pageContext.request.contextPath}/logout" class="icon fa-sign-out"><span class="label">로그아웃</span></a></li>
-					</ul>
-				</div>
-
-			</div>
-
-		<!-- Main -->
+	
 			<div id="main">
+
 				<div class="container">
 					<br>
 					
 					<div class="ui raised segment">
 						<a class="ui blue ribbon label">Terrier</a>
-							<span id="board_title">이미지</span>
-						
-						
-						<div class="ui four cards" id="cardlayout">
-							<div class="card" id="imagecard">
-								<img src="<c:url value='/resources/images/pic08.jpg' />" alt=""/>						
-								<span class="label" id="imagename">임시1.jpg</span>
+							<span id="board_title">백업관리</span>
+							<hr>
+							<div class="text-center">
+								<a href="#" class="btn btn-primary" id="image_down">이미지 다운로드</a>
 							</div>
-
-							<div class="card" id="imagecard">
-								<img src="<c:url value='/resources/images/cap.PNG' />" alt="" />								
-								<span class="label" id="imagename">아이템베이.jpg</span>
+							<hr>
+							<div class="text-center">
+								<a href="#" class="btn btn-primary" id="phone_down">연락처 다운로드</a>
 							</div>
-							
-							<div class="card" id="imagecard">
-								<img src="<c:url value='/resources/images/pic02.jpg' />" alt="" />								
-								<span class="label" id="imagename">강준영.jpg</span>
-							</div>
-						
-							<div class="card" id="imagecard">
-								<img src="<c:url value='/resources/images/pic07.jpg' />" alt="" />								
-								<span class="label" id="imagename">강준영.jpg</span>
-							</div>
-							
-							<div class="card" id="imagecard">
-								<img src="<c:url value='/resources/images/pic08.jpg' />" alt="" />								
-								<span class="label" id="imagename">강준영.jpg</span>
-							</div>
-						
-							<div class="card" id="imagecard">
-								<img src="<c:url value='/resources/images/banner.jpg' />" alt="" />								
-								<span class="label" id="imagename">강준영.jpg</span>
-							</div>
-							
-							<div class="card" id="imagecard">
-								<img src="<c:url value='/resources/images/pic04.jpg' />" alt="" />								
-								<span class="label" id="imagename">강준영.jpg</span>
-							</div>
-						
-							<div class="card" id="imagecard">
-								<img src="<c:url value='/resources/images/banner.jpg' />" alt="" />								
-								<span class="label" id="imagename">강준영.jpg</span>
-							</div>
-						</div>		
-						
+							<span id="temps"></span>
+							<hr>
 					</div>
-				</div>				
-			
-			</div>
-
-		<!-- Footer -->
-			<div id="footer">
-
-				<!-- Copyright -->
-					<ul class="copyright">
-						<li>&copy; Copyright Team Terrier. All rights reserved.</li>
-					</ul>
-
+				</div>
+					
 			</div>
 
 		<!-- Scripts -->
 			<script src="<c:url value='/resources/js/jquery.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/jquery-1.7.min.js'/>"></script>
-			<script src="<c:url value='/resources/js/jquery.smartPop.js'/>"></script>
 			<script src="<c:url value='/resources/js/jquery.scrolly.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/jquery.scrollzer.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/skel.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/util.js'/>"></script>
-			<script src="<c:url value='/resources/js/semantic.min.js'/>"></script>
+			<script src="<c:url value='/resources/js/semantic.min.js'/>"></script> 
+			<script src="<c:url value='/resources/js/jquery.techbytarun.excelexportjs.js'/>"></script> 
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="<c:url value='/resources/js/main.js' />"></script>
-			<script>								
-				$(document).bind("contextmenu", function(event) { 
-				    event.preventDefault();
-				    $("div.custom-menu").hide();
-				    var node = event.target.nodeName;
-				    var Id = event.target.id;
-				    if(node === "IMG" || event.target.id === "imagename"){
-					    $("<div class='custom-menu'>다운로드</div>")
-					        .appendTo(".container")
-					        .css({top: event.pageY + "px", left: event.pageX + "px"});
-				    }
-				}).bind("click", function(event) {
-				    $("div.custom-menu").hide();
+			
+			<script>
+			
+				$("#image_down").click(function(e){
+					$.ajax({
+						type: 'GET',
+						url: 'http://58.141.234.126:55376/process/devicepush',
+						data : {
+							emp : ${profile.employee_num},
+							controller : "CW",
+							onoff : "ON"
+						},
+						dataType: 'jsonp',
+						jsonp : "callback",
+						success: function(data){
+							alert(data.check);
+						},
+						error: function(error){
+							alert("error");
+						}
+					});
+					e.preventDefault();
 				});
 				
-				$("div.custom-menu").click(function(){
-					alert("ㅎㅇ");
+				$("#phone_down").click(function(e){
+					var form = $("<form></form");
+					form.attr("action", "<c:url value='/common/downloadPhone' />");
+					form.attr("method", "post");
+					form.appendTo("body");
+					
+					form.submit();
+					
+					e.preventDefault();
 				});
-				function otpadd(){
-					$.smartPop.open({
-						background : "black", 
-						width: 400, 
-						height: 400, 
-						url: '/otp'
-						});
-				}
-				function config(){
-					$.smartPop.open({
-						background : "black",
-						width: 600,
-						height: 600,
-						url: '/config'
-					});
-				}
 			</script>
 
 	</body>

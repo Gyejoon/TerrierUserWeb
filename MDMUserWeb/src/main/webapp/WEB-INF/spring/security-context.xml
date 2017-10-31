@@ -37,12 +37,16 @@
 	<context:annotation-config />
 	
 	<!-- 로그인 인증 bean -->
-	<bean id="loginSuccessHandler" class="com.gyejoong.mdmuserweb.auth.LoginSuccessHandler"/>
+	<bean id="loginSuccessHandler" class="com.gyejoong.mdmuserweb.auth.LoginSuccessHandler">
+		<property name="defaultUrl" value="/profile"/>
+	</bean>
 	<bean id="loginFailureHandler" class="com.gyejoong.mdmuserweb.auth.LoginFailureHandler"/>
 	<bean id="preludebUserService" class="com.gyejoong.mdmuserweb.auth.PreludebUserService"/>
 	
 	<!-- 로그아웃 bean -->
-	<bean id="LogoutSuccessHandler" class="com.gyejoong.mdmuserweb.auth.LogoutSuccessHandlerimpl"/>
+	<bean id="LogoutSuccessHandler" class="com.gyejoong.mdmuserweb.auth.LogoutSuccessHandlerimpl">
+		<property name="defaultUrl" value="/profile"></property>
+	</bean>
 	
 	<security:authentication-manager>
 		<security:authentication-provider user-service-ref="preludebUserService">

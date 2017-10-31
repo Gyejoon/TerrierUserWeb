@@ -25,6 +25,11 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 		<beans:property name="contentType" value="text/html; charset=UTF-8" />
+		<beans:property name="order" value="2"/>
+	</beans:bean>
+	
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="1"/>
 	</beans:bean>
 	
 	<context:component-scan base-package="com.gyejoong.mdmuserweb"/>
@@ -35,6 +40,18 @@
 			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
+	
+	<beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<beans:property name="order" value="0" />
+		<beans:property name="defaultErrorView" value="error" />
+		<beans:property name="exceptionMappings">
+			<beans:props>
+				<beans:prop key="RuntimeException">error</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean name="excelView" class="com.gyejoong.mdmuserweb.util.ExcelView"/>
 	
 	<beans:bean id="myHandler" class="com.gyejoong.mdmuserweb.websocket.locationWebSocketHandler" />
 	

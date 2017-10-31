@@ -24,5 +24,10 @@ public class CommonServiceImpl implements CommonService{
 	public Map<String, Object> selectFileInfo(BoardFileVo board) throws Exception {
 		return sqlSession.getMapper(CommonDao.class).selectFileInfo(board);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectPhoneInfo(String username) throws Exception {
+		return sqlSession.getMapper(CommonDao.class).selectPhoneInfo(username);
+	}
 	
 }

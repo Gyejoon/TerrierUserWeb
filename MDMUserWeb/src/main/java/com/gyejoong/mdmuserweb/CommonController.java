@@ -3,6 +3,7 @@ package com.gyejoong.mdmuserweb;
 import java.io.File;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -13,6 +14,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gyejoong.mdmuserweb.service.CommonService;
 import com.gyejoong.mdmuserweb.vo.BoardFileVo;
@@ -41,5 +43,20 @@ public class CommonController {
 		
 		response.getOutputStream().flush();
 		response.getOutputStream().close();
+	}
+	
+	@RequestMapping(value="/common/downloadPhone")
+	public String downloadPhone(Map<String, Object> ModelMap, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		log.info(request.getRemoteAddr() + "가 /control/downloadPhone 연락처 다운로드 시도->" + new Date());
+		
+		String username = request.getSession().getAttribute("username").toString();
+		
+		response.setHeader("Content-Disposition", "attachment; fileName=" + username + ".xlsx");
+		
+		List<Map<String, Object>> excelList = commonService.selectPhoneInfo(username);
+		
+		ModelMap.put("excelList", excelList);
+		
+		return "excelView";
 	}
 }

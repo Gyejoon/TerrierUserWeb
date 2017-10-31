@@ -69,7 +69,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 		
 		logger.info(request.getRemoteAddr() + "에서 " + auth.getName() + "가 로그인 성공->" + new Date());
 		
-		response.sendRedirect(requestCache.getRequest(request, response).getRedirectUrl());
+		if(requestCache.getRequest(request, response) != null) 
+			response.sendRedirect(requestCache.getRequest(request, response).getRedirectUrl());
+		else	// login으로 바로 접근하는 경우
+			response.sendRedirect(defaultUrl); // 기본 Url로 			
 	}
 	
 	private void clearAttributeSession(HttpServletRequest request) {
