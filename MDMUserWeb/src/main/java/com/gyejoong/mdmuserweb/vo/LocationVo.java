@@ -15,7 +15,5 @@ public class LocationVo {
 	}
 	public void setLongitude(String longitude) {
 		Longitude = longitude;
-	}
-	
-	
+	}	
 }
