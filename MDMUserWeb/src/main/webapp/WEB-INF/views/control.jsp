@@ -133,7 +133,7 @@
 										</c:if>
 										</td>
 										<td>${profile.name}</td>
-										<td>${dto.date}</td>
+										<td>${dto.regist_date}</td>
 										<c:choose>
 											<c:when test="${dto.admit == 0}">
 												<td>미확인</td>
@@ -235,7 +235,7 @@
 
 				<!-- Copyright -->
 					<ul class="copyright">
-						<li>&copy; Copyright Team Terrier. All rights reserved.</li>
+						<li>&copy; Copyright KJY. All rights reserved.</li>
 					</ul>
 
 			</div>
@@ -294,6 +294,7 @@
 									+ "&" + pageNum);
 							}
 						}
+						
 						leftgroupNumhref = $("#leftpage").attr("href");
 						rightgroupNumhref = $("#rightpage").attr("href")
 						
@@ -311,6 +312,7 @@
 						}
 						
 					}
+					
 				});
 
 			</script>

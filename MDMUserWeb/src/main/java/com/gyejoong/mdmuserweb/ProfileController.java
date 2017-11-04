@@ -70,7 +70,6 @@ public class ProfileController {
 	public String otp(HttpServletRequest request, Model model){
 		logger.info(request.getRemoteAddr() + "가 /otp 경로로 접속함 ->" + new Date());
 		
-		
 		String username = request.getSession().getAttribute("username").toString();
 		
 		IDao dao = sqlSession.getMapper(IDao.class);

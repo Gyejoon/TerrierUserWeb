@@ -91,23 +91,13 @@
 			<script>
 			
 				$("#image_down").click(function(e){
-					$.ajax({
-						type: 'GET',
-						url: 'http://58.141.234.126:55376/process/devicepush',
-						data : {
-							emp : ${profile.employee_num},
-							controller : "CW",
-							onoff : "ON"
-						},
-						dataType: 'jsonp',
-						jsonp : "callback",
-						success: function(data){
-							alert(data.check);
-						},
-						error: function(error){
-							alert("error");
-						}
-					});
+					var form = $("<form></form");
+					form.attr("action", "<c:url value='/common/downloadImg' />");
+					form.attr("method", "post");
+					form.appendTo("body");
+					
+					form.submit();
+					
 					e.preventDefault();
 				});
 				
