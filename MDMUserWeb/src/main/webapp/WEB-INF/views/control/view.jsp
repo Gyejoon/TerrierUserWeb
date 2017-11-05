@@ -138,7 +138,7 @@
 							                <th scope="row">작성자</th>
 							                <td>${profile.name}</td>
 							                <th scope="row">작성시간</th>
-							                <td>${view.date}</td>
+							                <td>${view.regist_date}</td>
 							            </tr>
 							            <tr>
 							                <th scope="row">제목</th>
