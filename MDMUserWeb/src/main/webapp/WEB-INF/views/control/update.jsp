@@ -13,8 +13,6 @@
 		<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/semantic.min.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/main.css' />" />
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<style>
 			.container {
 				margin-right: auto;
@@ -78,21 +76,11 @@
 						</div>
 
 					<!-- Nav -->
-						<nav id="nav">
-							<ul>
-								<li><a href="${pageContext.request.contextPath}/profile" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/lost" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-phone">분실관리</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/control" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">제어요청</span></a></li>
-							</ul>
-						</nav>
+						<%@ include file="../common/nav.jsp" %>
 				</div>
 
 				<div class="bottom">
 					<ul class="icons">
-						<c:if test="${profile.OTP eq 'NO'}">
-       						<li><a href="#" onclick="javascript:otpadd()" class="icon fa-lock"><span class="label">OTP</span></a></li>
-       					</c:if>
-						<li><a href="#" onclick="javascript:config()" class="icon fa-cloud"><span class="label">백업관리</span></a></li>
 						<li><a href="${pageContext.request.contextPath}/logout" class="icon fa-sign-out"><span class="label">로그아웃</span></a></li>
 					</ul>
 				</div>
@@ -150,7 +138,7 @@
 						
 					</div>
 				</div>
-					
+				<%@ include file="../common/Backup.jsp" %>
 			</div>
 
 		<!-- Footer -->
@@ -164,9 +152,7 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="<c:url value='/resources/js/jquery.min.js'/>"></script>
-			<script src="<c:url value='/resources/js/jquery-1.7.min.js'/>"></script>
-			<script src="<c:url value='/resources/js/jquery.smartPop.js'/>"></script>
+			<script src="<c:url value='/resources/js/jquery-3.2.1.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/jquery.scrolly.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/jquery.scrollzer.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/skel.min.js'/>"></script>
@@ -174,31 +160,13 @@
 			<script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
 			<script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/semantic.min.js'/>"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="<c:url value='/resources/js/BackupManage.js' />"></script>
 			<script src="<c:url value='/resources/js/main.js' />"></script>
 			
 			<script>
 				window.onload = function(){
 					CKEDITOR.replace('contents');
 					$("#title_tit").val("${view.title}").attr("selected", "selected");
-				}
-				
-				function otpadd(){
-					$.smartPop.open({
-						background : "black", 
-						width: 400, 
-						height: 400, 
-						url: '/otp'
-						});
-				}
-
-				function config(){
-					$.smartPop.open({
-						background : "black",
-						width: 600,
-						height: 600,
-						url: '/config'
-					});
 				}
 				
 				$("#modif").click(function(e){

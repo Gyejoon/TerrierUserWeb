@@ -63,7 +63,7 @@
           FROM (SELECT *
                   FROM control_board
                  WHERE User_info_employee_num = #{param1}
-                 and Date like #{param2}
+                 and regist_date like #{param2}
                 ) a
              , (SELECT @rn := 0) b
         ) c
@@ -108,7 +108,7 @@
           FROM (SELECT *
                   FROM control_board
                  WHERE User_info_employee_num = #{param1}
-                and contents like #{param2} and Date like #{param3}
+                and contents like #{param2} and regist_date like #{param3}
                 ) a
              , (SELECT @rn := 0) b
         ) c
@@ -123,7 +123,7 @@
           FROM (SELECT *
                   FROM control_board
                  WHERE User_info_employee_num = #{param1}
-                 and title like #{param2} and contents like #{param3} and Date like #{param4}
+                 and title like #{param2} and contents like #{param3} and regist_date like #{param4}
                 ) a
              , (SELECT @rn := 0) b
         ) c
@@ -161,7 +161,7 @@
 	<select id="BoardDateSearchCount" resultType="int">
 		select count(*) as count from control_board
 		where User_info_employee_num = #{param1}
-		and Date like #{param2}
+		and regist_date like #{param2}
 	</select>
 	
 	<select id="BoardTitleandContentsSearchCount" resultType="int">
@@ -173,19 +173,19 @@
 	<select id="BoardTitleandDateSearchCount" resultType="int">
 		select count(*) as count from control_board
 		where User_info_employee_num = #{param1}
-		and title like #{param2} and Date like #{param3}
+		and title like #{param2} and regist_date like #{param3}
 	</select>
 
 	<select id="BoardContentsandDateSearchCount" resultType="int">
 		select count(*) as count from control_board
 		where User_info_employee_num = #{param1}
-		and contents like #{param2} and Date like #{param3}
+		and contents like #{param2} and regist_date like #{param3}
 	</select>
 	
 	<select id="BoardAllSearchCount" resultType="int">
 		select count(*) as count from control_board
 		where User_info_employee_num = #{param1}
-		and title like #{param2} and contents like #{param3} and Date like #{param4}
+		and title like #{param2} and contents like #{param3} and regist_date like #{param4}
 	</select>
 					
 	<insert id="BoardWrite" parameterType="com.gyejoong.mdmuserweb.vo.BoardVo" 

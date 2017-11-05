@@ -8,6 +8,7 @@
 		<meta charset="utf-8" />
 		<!-- <meta name="viewport" content="width=device-width, initial-scale=1" />-->
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="<c:url value='/resources/css/jquery.smartPop.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap-theme.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/semantic.min.css' />" />
@@ -90,7 +91,7 @@
 					
 					<div class="ui raised segment">
 						<a class="ui blue ribbon label">Terrier</a>
-							<span id="board_title">제어 요청 내역</span>
+							<span id="board_title">공지사항</span>
 						
 						<table class="table table-hover">
 							<thead>
