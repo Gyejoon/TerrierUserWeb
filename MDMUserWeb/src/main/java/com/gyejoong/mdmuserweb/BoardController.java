@@ -264,6 +264,19 @@ public class BoardController {
 			} else {
 				searchList = null;
 			}
+		} else {
+			count = dao.BoardCount(username);
+			
+			startRow = count - (currentPage * pageSize) + 1;
+			endRow = count - ((currentPage-1) * pageSize);
+			
+			if(count > 0){
+				if(endRow > count)
+					endRow = count;
+				searchList = dao.BoardList(username, startRow, endRow);
+			}else{
+				searchList = null;
+			}
 		}
 		
 		// 페이지 그룹의 갯수

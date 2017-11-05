@@ -36,4 +36,12 @@
      
    </div>
 </body>
+<script>
+	$(function(){
+		$(".link").click(function(e){
+			alert("비밀번호는 모바일에서 변경할 수 있습니다.");
+			e.preventDefault();
+		});
+	});
+</script>
 </html>

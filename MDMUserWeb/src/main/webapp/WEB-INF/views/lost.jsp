@@ -1,15 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<title>��� ������</title>
+		<title>사원 페이지</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1" />-->
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="<c:url value='/resources/css/jquery.smartPop.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/semantic.min.css' />" />
+		<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap-theme.css' />" />
+		<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/main.css' />" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
@@ -65,44 +66,34 @@
 						</div>
 
 					<!-- Nav -->
-						<nav id="nav">
-							<ul>
-								<li><a href="${pageContext.request.contextPath}/profile" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/lost" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-phone">�нǰ���</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/control" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">�����û</span></a></li>
-							</ul>
-						</nav>
+					<%@ include file="common/nav.jsp" %>
 
 				</div>
 
 				<div class="bottom">
 					<ul class="icons">
-						<c:if test="${profile.OTP eq 'NO'}">
-       						<li><a href="#" onclick="javascript:otpadd()" class="icon fa-lock"><span class="label">OTP</span></a></li>
-       					</c:if>
-						<li><a href="#" onclick="javascript:config()" class="icon fa-cloud"><span class="label">�������</span></a></li>
-						<li><a href="${pageContext.request.contextPath}/logout" class="icon fa-sign-out"><span class="label">�α׾ƿ�</span></a></li>
+						<li><a href="${pageContext.request.contextPath}/logout" class="icon fa-sign-out"><span class="label">로그아웃</span></a></li>
 					</ul>
 				</div>
 
 			</div>
-
+		
 		<!-- Main -->
 			<div id="main">
 
 				<div class="container">
 					<br>
-					
+
 					<div class="ui raised segment">
 						<a class="ui blue ribbon label">Terrier</a>
-						<span id="board_title">�� ����̽� ��ġ</span>
+						<span id="board_title">내 디바이스 위치</span>
 						
 						<div id="map"></div>
 						<script>
 							var uluru = {lat: ${location.latitude}, lng: ${location.longitude}};
-							var contentString = '<div style="width:140px;height:50px;color:#000;">';
-							var contentString1 = '${address}';
-							var contentString2 = '</div>';
+							var contentString = '<div style="width:180px;height:140px;color:#000;">';
+							var contentString1 = '위치주소 : ${address}<hr><p class="text-center"><a class="btn btn-default" data-toggle="modal" data-target="#myModal">분실신고</a>';
+							var contentString2 = '</p></div>';
 							var contentString3 = contentString+=contentString1+=contentString2;
 							
 							function initMap() {
@@ -110,11 +101,11 @@
 									zoom: 16,
 									center: uluru
 								});
-									
+								
 								var marker = new google.maps.Marker({
 									position: uluru,
 									map: map,
-									title: 'Ŭ���ϸ� ���� �ּҸ� Ȯ���� �� �ֽ��ϴ�.'
+									title: '클릭하면 상세한 주소를 확인할 수 있습니다.'
 								});
 								
 								
@@ -136,11 +127,39 @@
 						src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAHUEeHC6eKVtvQqP7X1AGK6zg9aNTJUww&callback=initMap">
 						</script>
 						<hr>
+						<!-- Modal -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span style="color:#000;" aria-hidden="true">×</span></button>
+						        <h5 style="color:black;font-size: 20px;" class="modal-title" id="exampleModalLabel">분실 신고</h5>
+						      </div>
+						      <div class="modal-body">
+							  	<form id="form_board" method="post" action="/request/lost">
+							          <div class="form-group">
+							            <label style="color:black;font-size:15px; font-weight:bold;" for="recipient-name" class="control-label">작성자</label>
+							            <input type="text" class="form-control" id="recipient-name" name="name" value="${profile.employee_num}" readonly>
+							          </div>
+							          <div class="form-group">
+							            <label style="color:black;font-size:15px; font-weight:bold;" for="message-text" class="control-label">신고내용</label>
+							            <textarea class="form-control" id="message-text" name="contents"></textarea>
+							          </div>
+						      	</form>
+					          </div>
+						      <div class="modal-footer">
+						        <a class="btn btn-default" data-dismiss="modal">취소</a>
+						        <a class="btn btn-primary" id="requestlost" onclick="javascript:lostsubmit()">전송</a>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+						<!-- Backup Modal -->		
+						<%@ include file="common/Backup.jsp" %>		
 					</div>
 				</div>
 					
 			</div>
-
 		<!-- Footer -->
 			<div id="footer">
 
@@ -148,37 +167,39 @@
 					<ul class="copyright">
 						<li>&copy; Copyright Team Terrier. All rights reserved.</li>
 					</ul>
-
 			</div>
 
 		<!-- Scripts -->
-			<script src="<c:url value='/resources/js/jquery.min.js'/>"></script>
-			<script src="<c:url value='/resources/js/jquery-1.7.min.js'/>"></script>
-			<script src="<c:url value='/resources/js/jquery.smartPop.js'/>"></script>
+			<script src="<c:url value='/resources/js/jquery-3.2.1.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/jquery.scrolly.min.js'/>"></script>
-			<script src="<c:url value='/resources/js/jquery.scrollzer.min.js'/>"></script>
+			<script src="<c:url value='/resources/js/jquery.scrollzer.min.js'/>"></script>			
+			<script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script> 
 			<script src="<c:url value='/resources/js/skel.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/util.js'/>"></script>
 			<script src="<c:url value='/resources/js/semantic.min.js'/>"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="<c:url value='/resources/js/BackupManage.js' />"></script>
 			<script src="<c:url value='/resources/js/main.js' />"></script>
 			<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-			<script>
-				function otpadd(){
-					$.smartPop.open({
-						background : "black", 
-						width: 400, 
-						height: 400, 
-						url: '/otp'
-						});
-				}
-				function config(){
-					$.smartPop.open({
-						background : "black",
-						width: 600,
-						height: 600,
-						url: '/cloud'
-					});
+			<script>				
+				function lostsubmit(){
+					var contents = $("#message-text").val();
+					var blank_pattern = /^\s+|\s+$g/;
+					
+					if(contents == "" || contents.length <= 0 || contents == null){
+						alert("신고 내용을 작성해 주세요.");
+						$("#message-text").focus();
+						return;
+					}else if(contents.replace(blank_pattern, "") == ""){
+						alert("신고 내용을 작성해 주세요.");
+						$("#message-text").focus();
+						return;
+					}
+					if(!confirm("분실신고 요청을 하시겠습니까?")){
+						return;
+					};
+					
+					alert("분실신고 요청이 완료되었습니다. \n수분 내로 처리할 예정이오니 잠시만 기다려주세요.");
+					$("#form_board").submit();
 				}
 				
 				var wsUri = "ws://www.terrier.co19.kr/websocket/location";
@@ -213,11 +234,10 @@
 				}
 				
 				function onError(evt){
-					writeToScreen("ERROR : " + evt.data);
+					alert("서버와의 연결이 불안정 합니다.");
 				}
 				
 				function doSend(message){
-					writeToScreen("Message Sent: " + message);
 					websocket.send(message);
 				}
 				

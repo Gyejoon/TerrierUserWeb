@@ -35,7 +35,7 @@
 		<center>
 		<div>
 			<div id="loading"><img id="loading-image" src="<c:url value='/resources/images/loading.gif' />" alt="" /></div>
-			<img id="QR"src="${otpinfo.QR_CODE}" alt="" />			
+			<img id="QR"src="${otpinfo.QR_CODE}" alt="" />
 		</div>	
 		</center>
 	</body>

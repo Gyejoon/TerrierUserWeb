@@ -3,6 +3,7 @@ package com.gyejoong.mdmuserweb;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.gyejoong.mdmuserweb.dao.IDao;
+import com.gyejoong.mdmuserweb.service.CommonService;
 
 /**
  * Handles requests for the application home page.
@@ -24,8 +26,8 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@Autowired
-	SqlSession sqlSession;
+	@Resource(name="commonService")
+	CommonService commonService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(HttpServletRequest request, Model model) {
@@ -41,16 +43,14 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	public String profile(HttpServletRequest request, Model model){
+	public String profile(HttpServletRequest request, Model model) throws Exception{
 		logger.info(request.getRemoteAddr() + "가 /profile 경로로 접속함->" + new Date());
 		
 		String username = request.getSession().getAttribute("username").toString();
 		
-		IDao dao = sqlSession.getMapper(IDao.class);
-		
-		model.addAttribute("profile", dao.Profile(username));
+		model.addAttribute("profile", commonService.Profile(username));
 		
 		return "profile";
-	}	
+	}
 
 }

@@ -30,6 +30,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gyejoong.mdmuserweb.dao.IDao;
 import com.gyejoong.mdmuserweb.dao.location_info;
@@ -37,6 +38,7 @@ import com.gyejoong.mdmuserweb.gps.GpsToAddress;
 import com.gyejoong.mdmuserweb.service.CommonService;
 import com.gyejoong.mdmuserweb.vo.BoardVo;
 import com.gyejoong.mdmuserweb.vo.OtpVo;
+import com.gyejoong.mdmuserweb.vo.UserVo;
 
 /**
  * Handles requests for the application home page.
@@ -52,74 +54,43 @@ public class ProfileController {
 	@Resource(name="commonService")
 	private CommonService commonService;
 	
-	
-	@RequestMapping(value = "/cloud", method = RequestMethod.GET)
-	public String cloud(HttpServletRequest request, Model model){
-		logger.info(request.getRemoteAddr() + "가 /cloud 경로로 접속함->" + new Date());
-		
-		String username = request.getSession().getAttribute("username").toString();
-		
-		IDao dao = sqlSession.getMapper(IDao.class);
-		
-		model.addAttribute("profile", dao.Profile(username));
-		
-		return "cloud";
-	}
-	
 	@RequestMapping(value = "/otp", method = RequestMethod.GET)
-	public String otp(HttpServletRequest request, Model model){
+	@ResponseBody
+	public Map<String, Object> otp(HttpServletRequest request) throws Exception{
 		logger.info(request.getRemoteAddr() + "가 /otp 경로로 접속함 ->" + new Date());
 		
 		String username = request.getSession().getAttribute("username").toString();
+		UserVo userVo = commonService.Profile(username);
+		// Post로 OTP서버에 OTP정보 요청
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		HttpPost httpPost = new HttpPost("http://58.141.234.126:55406/otpadd");
 		
-		IDao dao = sqlSession.getMapper(IDao.class);
+		// 파라미터는 employee_num, Name
+		List<NameValuePair> list = new ArrayList<NameValuePair>();
+		list.add(new BasicNameValuePair("employee_num", username));
+		list.add(new BasicNameValuePair("Name", userVo.getName()));
 		
-		try{
-			// Post로 OTP서버에 OTP정보 요청
-			CloseableHttpClient httpClient = HttpClients.createDefault();
-			HttpPost httpPost = new HttpPost("http://58.141.234.126:55406/otpadd");
-			
-			// 파라미터는 employee_num, Name
-			List<NameValuePair> list = new ArrayList<NameValuePair>();
-			list.add(new BasicNameValuePair("employee_num", username));
-			list.add(new BasicNameValuePair("Name", dao.Profile(username).getName()));
-			
-			httpPost.setEntity(new UrlEncodedFormEntity(list, "UTF-8"));
-			CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
-			try{
-				// 응답 결과를 받음
-				HttpEntity entity = httpResponse.getEntity();
-				// 응답 결과가 JSON이므로 JSON을 HashMap 객체로 파싱
-				ObjectMapper mapper = new ObjectMapper();
-				HashMap<String, Object> map = mapper.readValue(EntityUtils.toString(entity), HashMap.class);
-				
-				// View에 보여주기 위하여 Vo객체에 map결과를 주입
-				OtpVo otpvo = new OtpVo();
-				otpvo.setQR_CODE(map.get("QR_CODE").toString());
-				otpvo.setCR_CODE(map.get("CR_CODE").toString());
-				
-				// Vo 객체를 뷰 속성에 추가
-				model.addAttribute("profile", dao.Profile(username));
-				model.addAttribute("otpinfo", otpvo);
-			
-				EntityUtils.consume(entity);
-			} finally {
-				httpResponse.close();
-			}
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+		httpPost.setEntity(new UrlEncodedFormEntity(list, "UTF-8"));
+		CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
+		// 응답 결과를 받음
+		HttpEntity entity = httpResponse.getEntity();
+		// 응답 결과가 JSON이므로 JSON을 HashMap 객체로 파싱
+		ObjectMapper mapper = new ObjectMapper();
+		HashMap<String, Object> map = mapper.readValue(EntityUtils.toString(entity), HashMap.class);
 		
-		return "otp";
+		EntityUtils.consume(entity);
+			
+		httpResponse.close();
+		
+		return map;
 	}
 	
 	@RequestMapping(value = "/lost", method = RequestMethod.GET)
-	public String lost(HttpServletRequest request, Model model){
+	public String lost(HttpServletRequest request, Model model) throws Exception{
 		logger.info(request.getRemoteAddr() + "가 /lost 경로로 접속함->" + new Date());
 		
 		String username = request.getSession().getAttribute("username").toString();
-		
-		IDao dao = sqlSession.getMapper(IDao.class);
+	
 		location_info location = sqlSession.getMapper(location_info.class);
 		GpsToAddress gps = null;
 		
@@ -134,7 +105,7 @@ public class ProfileController {
 				model.addAttribute("address", "주소가 없습니다.");
 			}
 		
-		model.addAttribute("profile", dao.Profile(username));
+		model.addAttribute("profile", commonService.Profile(username));
 		model.addAttribute("location", location.loc_info(username));
 		
 		return "lost";
@@ -190,6 +161,50 @@ public class ProfileController {
 		model.addAttribute("list", articleList);
 		
 		return "control";
+	}
+	
+	@RequestMapping(value="/notice")
+	public String notice(HttpServletRequest request, Model model) throws Exception{
+		logger.info(request.getRemoteAddr() + "가 /notice 경로로 접속함->" + new Date());
+		
+		String username = request.getSession().getAttribute("username").toString();
+		
+		model.addAttribute("profile", commonService.Profile(username));
+		
+		return "notice";
+	}
+	
+	@RequestMapping(value="/request/lost", method = RequestMethod.POST)
+	public String requestlost(HttpServletRequest request) throws Exception{
+		logger.info(request.getRemoteAddr() + "가 분실 신고 요청->" + new Date());
+		
+		String username = request.getSession().getAttribute("username").toString();
+		
+		System.out.println(request.getParameter("name"));
+		System.out.println(request.getParameter("contents"));
+		
+//		// Post로 관리자서버에 분실 신고 요청
+//		CloseableHttpClient httpClient = HttpClients.createDefault();
+//		HttpPost httpPost = new HttpPost("http://58.141.234.126:55406/otpadd");
+//			
+//		// 파라미터는 employee_num, contents
+//		List<NameValuePair> list = new ArrayList<NameValuePair>();
+//		list.add(new BasicNameValuePair("employee_num", username));
+//		list.add(new BasicNameValuePair("Name", userVo.getName()));
+//				
+//		httpPost.setEntity(new UrlEncodedFormEntity(list, "UTF-8"));
+//		CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
+//		// 응답 결과를 받음
+//		HttpEntity entity = httpResponse.getEntity();
+//		// 응답 결과가 JSON이므로 JSON을 HashMap 객체로 파싱
+//		ObjectMapper mapper = new ObjectMapper();
+//		HashMap<String, Object> map = mapper.readValue(EntityUtils.toString(entity), HashMap.class);
+//				
+//		EntityUtils.consume(entity);
+//			
+//		httpResponse.close();		
+		
+		return "redirect:/lost";
 	}
 	
 	

@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gyejoong.mdmuserweb.dao.CommonDao;
+import com.gyejoong.mdmuserweb.dao.IDao;
 import com.gyejoong.mdmuserweb.vo.BoardFileVo;
+import com.gyejoong.mdmuserweb.vo.UserVo;
 
 @Service("commonService")
 public class CommonServiceImpl implements CommonService{
@@ -28,6 +30,11 @@ public class CommonServiceImpl implements CommonService{
 	@Override
 	public List<Map<String, Object>> selectPhoneInfo(String username) throws Exception {
 		return sqlSession.getMapper(CommonDao.class).selectPhoneInfo(username);
+	}
+
+	@Override
+	public UserVo Profile(String username) throws Exception {
+		return sqlSession.getMapper(IDao.class).Profile(username);
 	}
 	
 }
