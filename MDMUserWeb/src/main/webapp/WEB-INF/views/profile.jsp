@@ -29,22 +29,17 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li><a href="${pageContext.request.contextPath}/profile" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/lost" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-phone">분실관리</span></a></li>
-								<li><a href="${pageContext.request.contextPath}/control" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">제어요청</span></a></li>
+								<c:if test="${profile.OTP eq 'NO'}">
+       								<li><a href="#" onclick="javascript:otpadd()" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-lock">OTP</span></a></li>
+       							</c:if>
+								<li><a href="${pageContext.request.contextPath}/profile" id="notice" class="skel-layers-ignoreHref"><span class="icon fa-bullhorn">공지사항</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/lost" id="lost" class="skel-layers-ignoreHref"><span class="icon fa-phone">분실관리</span></a></li>
+								<li><a href="${pageContext.request.contextPath}/control" id="control" class="skel-layers-ignoreHref"><span class="icon fa-envelope">제어요청</span></a></li>
+       							<li><a href="#" onclick="javascript:config()" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-cloud">백업관리</span></a></li>
+       							<li><a href="${pageContext.request.contextPath}/logout" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-sign-out">로그아웃</span></a></li>
 							</ul>
 						</nav>
 
-				</div>
-
-				<div class="bottom">
-					<ul class="icons">
-						<c:if test="${profile.OTP eq 'NO'}">
-       						<li><a href="#" onclick="javascript:otpadd()" class="icon fa-lock"><span class="label">OTP</span></a></li>
-       					</c:if>
-						<li><a href="#" onclick="javascript:config()" class="icon fa-cloud"><span class="label">백업관리</span></a></li>
-						<li><a href="${pageContext.request.contextPath}/logout" class="icon fa-sign-out"><span class="label">로그아웃</span></a></li>
-					</ul>
 				</div>
 
 			</div>
@@ -107,6 +102,12 @@
 						url: '/cloud'
 					});
 				}
+				
+				$("#notice").click(function(){
+					$("#notice").attr("href", );
+					$("#leftpage").attr("href", "?" + search_param[0]
+				});
+				
 			</script>
 	</body>
 </html>

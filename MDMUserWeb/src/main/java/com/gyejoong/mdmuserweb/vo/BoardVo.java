@@ -9,9 +9,10 @@ public class BoardVo {
 	private String title;
 	private String contents;
 	private short admit;
-	private Timestamp Date;
 	private String file_exist;
-	
+	private Timestamp regist_date;
+	private Timestamp grant_date;
+
 	public int getRn() {
 		return rn;
 	}
@@ -48,11 +49,17 @@ public class BoardVo {
 	public void setAdmit(short admit) {
 		this.admit = admit;
 	}
-	public Timestamp getDate() {
-		return Date;
+	public Timestamp getRegist_date() {
+		return regist_date;
 	}
-	public void setDate(Timestamp date) {
-		Date = date;
+	public void setRegist_date(Timestamp regist_date) {
+		this.regist_date = regist_date;
+	}
+	public Timestamp getGrant_date() {
+		return grant_date;
+	}
+	public void setGrant_date(Timestamp grant_date) {
+		this.grant_date = grant_date;
 	}
 	public String getFile_exist() {
 		return file_exist;
