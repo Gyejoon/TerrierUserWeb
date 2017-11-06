@@ -5,14 +5,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.gyejoong.mdmuserweb.gps.LocationParse;
+import com.gyejoong.mdmuserweb.gps.GpsToAddress;
 import com.gyejoong.mdmuserweb.websocket.locationWebSocketHandler;
 
-@RestController
+@Controller
 public class WebSocketController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(WebSocketController.class);
@@ -21,15 +22,15 @@ public class WebSocketController {
 	locationWebSocketHandler locationWebSocket;
 	
 	@RequestMapping(value = "/send/location", method = RequestMethod.POST)
+	@ResponseBody
 	public String locationSend(HttpServletRequest request) throws Exception{
-		String json = new String();
-		String buf;
+		String username = request.getParameter("employee_num");
+		String Latitude = request.getParameter("Latitude");
+		String Longitude = request.getParameter("Longitude");
+		GpsToAddress gpsToaddress = new GpsToAddress(Float.parseFloat(Latitude), Float.parseFloat(Longitude));
+		String location = Latitude + ":" + Longitude + ":" + gpsToaddress.getAddress();
 		
-		while((buf = request.getReader().readLine()) != null) json += buf;
-		
-		LocationParse parse = new LocationParse(json);
-		String location = parse.getLocation();
-		String username = parse.getEmployeeNum();
+		System.out.println(location);
 		
 		locationWebSocket.sendLocationinfo(location, username);
 		

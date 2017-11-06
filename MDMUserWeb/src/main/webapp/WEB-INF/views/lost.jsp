@@ -92,9 +92,11 @@
 						<script>
 							var uluru = {lat: ${location.latitude}, lng: ${location.longitude}};
 							var contentString = '<div style="width:180px;height:140px;color:#000;">';
-							var contentString1 = '위치주소 : ${address}<hr><p class="text-center"><a class="btn btn-default" data-toggle="modal" data-target="#myModal">분실신고</a>';
-							var contentString2 = '</p></div>';
-							var contentString3 = contentString+=contentString1+=contentString2;
+							var contentString1 = '위치주소 : ';
+							var contentString2 = '${address}';
+							var contentString3 = '<hr><p class="text-center"><a class="btn btn-default" data-toggle="modal" data-target="#myModal">분실신고</a>'
+							var contentString4 = '</p></div>';
+							var contentString5 = contentString+=contentString1+=contentString2+=contentString3+=contentString4;
 							
 							function initMap() {
 								var map = new google.maps.Map(document.getElementById('map'), {
@@ -110,7 +112,7 @@
 								
 								
 								var infowindow = new google.maps.InfoWindow({
-									content: contentString3
+									content: contentString5
 								});
 								
 								infowindow.open(map, marker);
@@ -229,7 +231,7 @@
 					var location = evt.data.split(":");
 					uluru.lat = parseFloat(location[0]);
 					uluru.lng = parseFloat(location[1]);
-					contentString3 = location[2];
+					contentString2 = location[2];
 					initMap();
 				}
 				

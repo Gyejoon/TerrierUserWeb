@@ -2098,13 +2098,13 @@
 					line-height: 1.75em;
 				}
 
-			#nav ul li a.actives {
+			#nav ul li a.activesgegege {
 				background: rgba(0, 0, 0, 0.15);
 				box-shadow: inset 0 0 0.25em 0 rgba(0, 0, 0, 0.125);
 				color: #fff;
 			}
 
-				#nav ul li a.actives span:before {
+				#nav ul li a.activesgege span:before {
 					color: #e27689;
 				}
 

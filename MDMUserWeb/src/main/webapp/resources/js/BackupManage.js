@@ -5,7 +5,11 @@
 					form.attr("method", "post");
 					form.appendTo("body");
 					
-					form.submit();
+					if(!confirm("다운로드 하시겠습니까?")){
+						return;
+					}else{
+						form.submit();
+					}
 					
 					e.preventDefault();
 				});
@@ -16,7 +20,11 @@
 					form.attr("method", "post");
 					form.appendTo("body");
 					
-					form.submit();
+					if(!confirm("다운로드 하시겠습니까?")){
+						return;
+					}else{
+						form.submit();
+					}
 					
 					e.preventDefault();
 				});
