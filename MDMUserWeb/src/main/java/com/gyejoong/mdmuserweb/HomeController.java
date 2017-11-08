@@ -49,6 +49,8 @@ public class HomeController {
 		String username = request.getSession().getAttribute("username").toString();
 		
 		model.addAttribute("profile", commonService.Profile(username));
+		model.addAttribute("applist", commonService.ApplicationList(username));
+		model.addAttribute("manage", commonService.Management(username));
 		
 		return "profile";
 	}

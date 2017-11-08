@@ -34,4 +34,44 @@
 		]]>
 	</select>
 	
+	<select id="ApplicationList" resultType="com.gyejoong.mdmuserweb.vo.ApplicationVo">
+		<![CDATA[
+			SELECT 
+				name,
+    			packagename,
+    			size_calc(size) as size,
+    			version
+			FROM 
+				application_info a
+			INNER JOIN 
+				Device_info d
+			ON 
+				a.Device_info_Id = d.Id
+			WHERE
+				d.User_info_employee_num = #{username}
+		]]>
+	</select>
+	
+	<select id="Management" resultType="com.gyejoong.mdmuserweb.vo.ManagementVo">
+		<![CDATA[
+			SELECT 
+    			getActive(Active) as Active,
+    			Wifi,
+    			Bluetooth,
+    			Tethering,
+    			Camera,
+    			VoiceRecord,
+    			Alarm,
+    			Gps
+			FROM 
+				device_management dm
+			INNER JOIN 
+				Device_info di
+			ON 
+				dm.Device_info_Id = di.Id
+			WHERE
+				di.User_info_employee_num = #{username}
+		]]>
+	</select>
+	
 </mapper>

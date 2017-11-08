@@ -35,8 +35,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gyejoong.mdmuserweb.dao.IDao;
 import com.gyejoong.mdmuserweb.dao.location_info;
 import com.gyejoong.mdmuserweb.gps.GpsToAddress;
+import com.gyejoong.mdmuserweb.service.BoardService;
 import com.gyejoong.mdmuserweb.service.CommonService;
 import com.gyejoong.mdmuserweb.vo.BoardVo;
+import com.gyejoong.mdmuserweb.vo.NoticeVo;
 import com.gyejoong.mdmuserweb.vo.OtpVo;
 import com.gyejoong.mdmuserweb.vo.UserVo;
 
@@ -53,6 +55,9 @@ public class ProfileController {
 	
 	@Resource(name="commonService")
 	private CommonService commonService;
+	
+	@Resource(name="BoardService")
+	private BoardService boardService;
 	
 	@RequestMapping(value = "/otp", method = RequestMethod.GET)
 	@ResponseBody
@@ -137,6 +142,8 @@ public class ProfileController {
 			if(endRow > count)
 				endRow = count;
 			articleList = dao.BoardList(username, startRow, endRow); // 현재 페이지에 해당하는 글 목록 리스트
+			if(articleList.isEmpty())	// pageNum에 해당하는 글이 없는 경우
+				return "redirect:/control";
 		} else {
 			articleList = null; // 게시물이 없는 경우
 		}
@@ -167,9 +174,52 @@ public class ProfileController {
 	public String notice(HttpServletRequest request, Model model) throws Exception{
 		logger.info(request.getRemoteAddr() + "가 /notice 경로로 접속함->" + new Date());
 		
-		String username = request.getSession().getAttribute("username").toString();
+		int pageSize = 10;
+		int pageGroupSize = 5;
 		
+		String pageNum = request.getParameter("pageNum");
+		
+		if(pageNum == null){ // 메뉴에서 제어요청 페이지를 선택한 경우
+			pageNum = "1";
+		}
+		
+		ArrayList<NoticeVo> noticeList = null;
+		String username = request.getSession().getAttribute("username").toString();
+		int count = boardService.NoticeCount();
+		
+		int currentPage = Integer.parseInt(pageNum); // 현재 페이지
+		int startRow = count - (currentPage * pageSize) + 1; 
+		int endRow = count - ((currentPage-1)*pageSize);
+		
+		if(count > 0){ // 게시물 총 갯수
+			if(endRow > count)
+				endRow = count;
+			noticeList = boardService.NoticeList(startRow, endRow); // 현재 페이지에 해당하는 글 목록 리스트
+			if(noticeList.isEmpty())	// pageNum에 해당하는 글이 없는 경우
+				return "redirect:/notice";
+		} else {
+			noticeList = null; // 게시물이 없는 경우
+		}
+		
+		// 페이지 그룹의 갯수
+		int pageGroupCount = count/(pageSize*pageGroupSize)+(count%(pageSize*pageGroupSize) == 0 ? 0 : 1);
+		// 페이지 그룹 번호
+		int numPageGroup = (int)Math.ceil((double)currentPage/pageGroupSize);
+		
+		// 기본
 		model.addAttribute("profile", commonService.Profile(username));
+		
+		model.addAttribute("currentPage", new Integer(currentPage));
+		model.addAttribute("startRow", new Integer(startRow));
+		model.addAttribute("endRow", new Integer(endRow));
+		model.addAttribute("pageSize", new Integer(pageSize));
+		model.addAttribute("count", new Integer(count));
+		
+		model.addAttribute("pageGroupSize", new Integer(pageGroupSize));
+		model.addAttribute("numPageGroup", new Integer(numPageGroup));
+		model.addAttribute("pageGroupCount", new Integer(pageGroupCount));
+		model.addAttribute("list", noticeList);
+		
 		
 		return "notice";
 	}

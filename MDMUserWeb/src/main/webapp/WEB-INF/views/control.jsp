@@ -6,7 +6,7 @@
 	<head>
 		<title>사원 페이지</title>
 		<meta charset="utf-8" />
-		<!-- <meta name="viewport" content="width=device-width, initial-scale=1" />-->
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap-theme.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css' />" />
@@ -85,7 +85,7 @@
 		<!-- Main -->
 			<div id="main">
 			
-				<div class="container">
+				<div class="container" style="width: 1200px; ">
 					<br>
 					
 					<div class="ui raised segment">

@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import com.gyejoong.mdmuserweb.dao.CommonDao;
 import com.gyejoong.mdmuserweb.dao.IDao;
+import com.gyejoong.mdmuserweb.vo.ApplicationVo;
 import com.gyejoong.mdmuserweb.vo.BoardFileVo;
+import com.gyejoong.mdmuserweb.vo.ManagementVo;
 import com.gyejoong.mdmuserweb.vo.UserVo;
 
 @Service("commonService")
@@ -35,6 +37,16 @@ public class CommonServiceImpl implements CommonService{
 	@Override
 	public UserVo Profile(String username) throws Exception {
 		return sqlSession.getMapper(IDao.class).Profile(username);
+	}
+
+	@Override
+	public List<ApplicationVo> ApplicationList(String username) throws Exception {
+		return sqlSession.getMapper(CommonDao.class).ApplicationList(username);
+	}
+
+	@Override
+	public ManagementVo Management(String username) throws Exception {
+		return sqlSession.getMapper(CommonDao.class).Management(username);
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.gyejoong.mdmuserweb.service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gyejoong.mdmuserweb.dao.IDao;
+import com.gyejoong.mdmuserweb.dao.NoticeDao;
 import com.gyejoong.mdmuserweb.util.FileUtils;
 import com.gyejoong.mdmuserweb.vo.BoardVo;
+import com.gyejoong.mdmuserweb.vo.NoticeVo;
 
 @Service("BoardService")
 public class BoardServiceImpl implements BoardService{
@@ -45,6 +48,21 @@ public class BoardServiceImpl implements BoardService{
 		
 		for(Map<String, Object> map : list)
 			dao.BoardFileInsert(map);
+	}
+
+	@Override
+	public ArrayList<NoticeVo> NoticeList(int startRow, int endRow) throws Exception {
+		return sqlSession.getMapper(NoticeDao.class).NoticeList(startRow, endRow);
+	}
+
+	@Override
+	public int NoticeCount() throws Exception {
+		return sqlSession.getMapper(NoticeDao.class).NoticeCount();
+	}
+
+	@Override
+	public NoticeVo NoticeBoardView(String id) throws Exception {
+		return sqlSession.getMapper(NoticeDao.class).NoticeBoardView(id);
 	}
 
 }

@@ -86,7 +86,7 @@
 		<!-- Main -->
 			<div id="main">
 			
-				<div class="container">
+				<div class="container" style="width: 1200px; ">
 					<br>
 					
 					<div class="ui raised segment">
@@ -100,7 +100,6 @@
 								<th>제목</th>
 								<th>작성자</th>
 								<th>작성일</th>
-								<th>승인여부</th>
 							</tr>
 							</thead>
 							<tbody>
@@ -109,32 +108,18 @@
 									<tr>
 										<td></td>
 										<td></td>
-										<td><c:out value="요청 내역이  없습니다."></c:out></td>
+										<td><c:out value="공지 내역이  없습니다."></c:out></td>
 									</tr>
 								</c:when>
 								<c:when test="${count > 0}">
 								<c:forEach items="${list}" var="dto" varStatus="status">
 									<tr>
-										<td>${dto.rn}</td>
-										<td width="400">
-										<a href="/control/view?id=${dto.idcontrol_board}">${dto.title}</a>
-										<c:if test="${dto.file_exist == 'Y'}">
-											<label class="icon fa-save" id="icon"></label>
-										</c:if>
+										<td>${dto.bno}</td>
+										<td width="600">
+										<a href="/notice/view?id=${dto.bno}">${dto.title}</a>
 										</td>
-										<td>${profile.name}</td>
-										<td>${dto.regist_date}</td>
-										<c:choose>
-											<c:when test="${dto.admit == 0}">
-												<td>미확인</td>
-											</c:when>
-											<c:when test="${dto.admit == 1}">
-												<td>승인완료</td>
-											</c:when>
-											<c:when test="${dto.admit == 2}">
-												<td>승인거부</td>
-											</c:when>
-										</c:choose>
+										<td>${dto.writer}</td>
+										<td>${dto.regdate}</td>
 									</tr>
 								</c:forEach>
 								</c:when>
@@ -154,7 +139,7 @@
 							<ul class="pagination pagination-lg">
 							<c:if test="${numPageGroup > 1}">
 								<li>
-									<a id="leftpage" href="/control?pageNum=${(numPageGroup-2)*pageGroupSize+1}" aria-label="Previous">
+									<a id="leftpage" href="/notice?pageNum=${(numPageGroup-2)*pageGroupSize+1}" aria-label="Previous">
 										<span aria-hidden="true">&laquo;</span>
 									</a>
 								</li>
@@ -165,13 +150,13 @@
 											<li class="active"><a href="#">${i}</a></li>
 										</c:when>
 										<c:when test="${currentPage != i}">
-											<li><a id="paging_${i}" href="/control?pageNum=${i}">${i}</a></li>
+											<li><a id="paging_${i}" href="/notice?pageNum=${i}">${i}</a></li>
 										</c:when>
 									</c:choose>
 								</c:forEach>
 								<c:if test="${numPageGroup < pageGroupCount}">
 								<li>
-									<a id="rightpage" href="/control?pageNum=${numPageGroup*pageGroupSize+1}" aria-label="Next">
+									<a id="rightpage" href="/notice?pageNum=${numPageGroup*pageGroupSize+1}" aria-label="Next">
 										<span aria-hidden="true">&raquo;</span>
 									</a>
 								</li>		
@@ -179,42 +164,6 @@
 							</ul>
 						</div>
 						</c:if>
-						<table>
-						<tr>
-							<td>
-							<form class="form-inline" id="form_board" method="get" action="/control/search">
-							  <div class="form-group">
-							    <div class="form-control" style="font-weight: bold; border: thin; color: #000;">제목</div>
-								    <select class="form-control" name="search_tit" id="search_tit">
-								    	<option value="">제목 선택</option>
-								      	<option>와이파이 차단</option>
-										<option>와이파이 허용</option>
-										<option>블루투스 차단</option>
-										<option>블루투스 허용</option>
-										<option>카메라 차단</option>
-										<option>카메라 허용</option>
-										<option>테더링 차단</option>
-										<option>테더링 허용</option>
-										<option>음성녹음 허용</option>
-										<option>음성녹음 차단</option>
-								    </select>
-							    <div class="form-control" style="font-weight: bold; border: thin; color: #000;">내용</div>
-							    <div class="input-group">
-							      <input type="text" class="form-control" name="search_con" id="search_con" placeholder="내용 입력">
-							    </div>
-							    <div class="form-control" style="font-weight: bold; border: thin; color: #000;">작성일</div>
-							    <div class="input-group">
-							      <input type="date" class="form-control" name="search_dat" id="search_dat" placeholder="년도-월-일">
-							    </div>
-							    <a href="#" class="btn btn-primary" id="search_button">검색</a>
-							</div>
-							</form>
-							</td>					
-							<td class="text-right">
-								<a href="/control/write" class="btn btn-primary">글쓰기</a>
-							</td>
-						</tr>
-						</table>
 					</div>
 				</div>
 				<%@ include file="common/Backup.jsp" %>

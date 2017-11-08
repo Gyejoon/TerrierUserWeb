@@ -6,8 +6,9 @@
 	<head>
 		<title>사원 페이지</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1" />-->
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="<c:url value='/resources/css/jquery.smartPop.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap-theme.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css' />" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/semantic.min.css' />" />
@@ -44,7 +45,6 @@
 			}
 			
 			table {
-				margin-top: 30px;
 				font-size: 16px;
 				color: #000;
 			}
@@ -57,12 +57,8 @@
 			
 			.form-control {
 				font-size: 14px;
-				width: 100%;
+				width: 3000px;
 				height: 40px;
-			}
-			
-			#file_id {
-				width: 100%;
 			}
 			
 		</style>
@@ -76,7 +72,7 @@
 					<!-- Logo -->
 						<div id="logo">
 							<span class="image avatar48"><img src="<c:url value='/resources/images/avatar.jpg' />" alt="" /></span>
-							<h1 id="title"><c:out value="${profile.name}"/></h1>
+							<h1 id="title"><c:out value="${profile.name}"></c:out></h1>
 							<p><c:out value="${profile.department}"/>&nbsp;<c:out value="${profile.rank}"/></p>
 						</div>
 
@@ -100,49 +96,46 @@
 					
 					<div class="ui raised segment">
 						<a class="ui blue ribbon label">Terrier</a>
-							<span id="board_title">제어 요청 글쓰기</span>								
+							<span id="board_title">공지사항 글</span>
 						
 						<div class="ui blue fluid card">
 							 <div class="content">
-						       		 
-								<form class="content ui form" id="form_board" method="post" action="/control/write" enctype="multipart/form-data">
-
-									<div class="two fields">
-							    		<div class="field">
-							      			<label> 제목</label>
-											<select class="form-control" name="title" id="title_tit">
-												<option>와이파이 차단</option>
-												<option>와이파이 허용</option>
-												<option>블루투스 차단</option>
-												<option>블루투스 허용</option>
-												<option>카메라 차단</option>
-												<option>카메라 허용</option>
-												<option>테더링 차단</option>
-												<option>테더링 허용</option>
-												<option>음성녹음 허용</option>
-												<option>음성녹음 차단</option>
-											</select>
-										</div>
-										<div class="field"></div>
-									</div>
-											
-									<div class="field">
-							    		<label> 내용</label>
-							    		<textarea class ="form-control" id="contents_id" name="contents" rows="15" cols="80"></textarea>
-							  		</div>
-							  		
-							  		<div class="field">
-							  			<label> 첨부파일</label>
-							  			<input type="file" class="form-control" name="file" id="file_id"> 
-							  		</div>
+							     <table class="table table-hover">
+							        <colgroup>
+							            <col width="15%"/>
+							            <col width="35%"/>
+							            <col width="15%"/>
+							            <col width="35%"/>
+							        </colgroup>
+							        <tbody>
+							            <tr>
+							                <th scope="row">글 번호</th>
+							                <td>${view.bno}</td>
+							                <th scope="row">작성자</th>
+							                <td>${view.writer}</td>
+							            </tr>
+							            <tr>
+											<th scope="row">제목</th>
+							                <td colspan="1">${view.title}</td>
+							                <th scope="row">작성시간</th>
+							                <td>${view.regdate}</td>
+							            </tr>
+							            <tr>
+							                
+							            </tr>
+							            <tr>
+							                <td colspan="4">${view.content}</td>
+							            </tr>            
+							        </tbody>
+							    </table>
 									<div class="text-right">
-										<a href="#" class="btn btn-primary" id="board_add" name="">추가</a>
-										<a href="#" class="btn btn-primary" name="" onclick="javascript:history.back()" >목록</a>
+										<a href="#" class="btn btn-primary" type="button" name="" onclick="javascript:history.back()" >목록</a>
 									</div>
-								</form>
 							</div>
 						</div>
-						
+
+					</div>
+				
 					</div>
 				</div>
 				<%@ include file="../common/Backup.jsp" %>
@@ -159,8 +152,8 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="<c:url value='/resources/js/jquery.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/jquery-3.2.1.min.js'/>"></script>
+			<script src="<c:url value='/resources/js/jquery.smartPop.js'/>"></script>
 			<script src="<c:url value='/resources/js/jquery.scrolly.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/jquery.scrollzer.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/skel.min.js'/>"></script>
@@ -169,27 +162,10 @@
 			<script src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/semantic.min.js'/>"></script>
 			<script src="<c:url value='/resources/js/BackupManage.js' />"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="<c:url value='/resources/js/main.js' />"></script>
 			
 			<script>
-				window.onload = function(){
-					CKEDITOR.replace('contents');
-				}
 				
-				$("#board_add").click(function(e){
-					e.preventDefault();
-					
-					if($("#title_tit").val() == ""){
-						alert("제목을 입력해 주세요.");
-						return;
-					}
-					
-					if(!confirm("제어요청 글을 작성하시겠습니까?")){
-						return;
-					};
-					$("#form_board").submit();
-				});
 
 			</script>
 

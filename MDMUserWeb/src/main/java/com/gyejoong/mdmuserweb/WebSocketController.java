@@ -21,7 +21,7 @@ public class WebSocketController {
 	@Autowired
 	locationWebSocketHandler locationWebSocket;
 	
-	@RequestMapping(value = "/send/location", method = RequestMethod.POST)
+	@RequestMapping(value = "/send/location/web", method = RequestMethod.POST)
 	@ResponseBody
 	public String locationSend(HttpServletRequest request) throws Exception{
 		String username = request.getParameter("employee_num");
@@ -30,7 +30,7 @@ public class WebSocketController {
 		GpsToAddress gpsToaddress = new GpsToAddress(Float.parseFloat(Latitude), Float.parseFloat(Longitude));
 		String location = Latitude + ":" + Longitude + ":" + gpsToaddress.getAddress();
 		
-		System.out.println(location);
+		logger.info(location);
 		
 		locationWebSocket.sendLocationinfo(location, username);
 		

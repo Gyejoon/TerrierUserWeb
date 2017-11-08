@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.gyejoong.mdmuserweb.vo.BoardFileVo;
 import com.gyejoong.mdmuserweb.vo.BoardVo;
+import com.gyejoong.mdmuserweb.vo.NoticeVo;
 import com.gyejoong.mdmuserweb.vo.UserVo;
 
 public interface IDao {

@@ -20,8 +20,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gyejoong.mdmuserweb.dao.IDao;
 import com.gyejoong.mdmuserweb.service.BoardService;
+import com.gyejoong.mdmuserweb.service.CommonService;
 import com.gyejoong.mdmuserweb.vo.BoardFileVo;
 import com.gyejoong.mdmuserweb.vo.BoardVo;
+import com.gyejoong.mdmuserweb.vo.NoticeVo;
 
 @Controller
 public class BoardController {
@@ -33,15 +35,16 @@ public class BoardController {
 	@Resource(name="BoardService")
 	BoardService boardService;
 	
+	@Resource(name="commonService")
+	CommonService commonService;
+	
 	@RequestMapping(value="/control/write", method = RequestMethod.GET)
-	public String write(HttpServletRequest request, Model model) {
+	public String write(HttpServletRequest request, Model model) throws Exception {
 		logger.info(request.getRemoteAddr() + "가 /control/write 경로로 접속함->" + new Date());
 		
 		String username = request.getSession().getAttribute("username").toString();
 		
-		IDao dao = sqlSession.getMapper(IDao.class);
-		
-		model.addAttribute("profile", dao.Profile(username));
+		model.addAttribute("profile", commonService.Profile(username));
 		
 		return "/control/write";
 	}
@@ -298,5 +301,24 @@ public class BoardController {
 		model.addAttribute("list", searchList);
 		
 		return "control";
+	}
+	
+	@RequestMapping(value="/notice/view", method=RequestMethod.GET)
+	public String noticeview(HttpServletRequest request, Model model) throws Exception {
+		logger.info(request.getRemoteAddr() + "가 " + request.getParameter("id")
+				+ "번 공지 게시물 열람 ->" + new Date());
+		
+		String username = request.getSession().getAttribute("username").toString();
+		String id = request.getParameter("id");
+		NoticeVo notice = boardService.NoticeBoardView(id);
+		
+		if(notice != null){
+			model.addAttribute("profile", commonService.Profile(username));
+			model.addAttribute("view", notice);
+				
+			return "/notice/view";
+		}else {
+			return "redirect:/notice";
+		}
 	}
 }

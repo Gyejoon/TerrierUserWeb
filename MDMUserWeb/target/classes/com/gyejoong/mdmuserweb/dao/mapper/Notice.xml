@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.gyejoong.mdmuserweb.dao.NoticeDao">
+	<select id="NoticeList" resultType="com.gyejoong.mdmuserweb.vo.NoticeVo">
+		<![CDATA[
+			SELECT *
+  				FROM (SELECT @rn := @rn + 1 rn
+            	 	, a.*
+          			FROM (SELECT *
+                		  FROM notice_board
+               	 	) a
+             		, (SELECT @rn := 0) b
+        		) c
+			WHERE rn BETWEEN #{param1} and #{param2}
+			ORDER BY rn DESC;
+		]]>
+	</select>
+	
+	<select id="NoticeCount" resultType="int">
+		<![CDATA[
+			SELECT count(*) as count 
+			FROM notice_board
+		]]>
+	</select>
+	
+	<select id="NoticeBoardView" resultType="com.gyejoong.mdmuserweb.vo.NoticeVo">
+		<![CDATA[
+			SELECT * 
+				FROM notice_board
+			WHERE 
+				bno=#{id}
+		]]>
+	</select>
+	
+</mapper>

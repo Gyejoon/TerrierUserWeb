@@ -14,6 +14,7 @@
 					e.preventDefault();
 				});
 				
+				
 				$("#phone_down").click(function(e){
 					var form = $("<form></form");
 					form.attr("action", "/common/downloadPhone");

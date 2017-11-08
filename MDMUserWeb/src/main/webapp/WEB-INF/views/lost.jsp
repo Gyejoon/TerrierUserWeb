@@ -81,7 +81,7 @@
 		<!-- Main -->
 			<div id="main">
 
-				<div class="container">
+				<div class="container" style="width: 1200px; ">
 					<br>
 
 					<div class="ui raised segment">
