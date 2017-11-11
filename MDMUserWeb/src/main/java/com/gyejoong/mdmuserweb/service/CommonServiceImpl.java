@@ -48,5 +48,16 @@ public class CommonServiceImpl implements CommonService{
 	public ManagementVo Management(String username) throws Exception {
 		return sqlSession.getMapper(CommonDao.class).Management(username);
 	}
+
+	@Override
+	public void ReportLost(String username, String type, String history) throws Exception {
+		sqlSession.getMapper(CommonDao.class).ReportLost(username, type, history);
+	}
+
+	@Override
+	public Map<String, Object> DeviceMangeDate(String username) throws Exception {
+		return sqlSession.getMapper(CommonDao.class).DeviceMangeDate(username);
+	}
+	
 	
 }

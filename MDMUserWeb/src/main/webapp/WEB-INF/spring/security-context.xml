@@ -13,7 +13,7 @@
 	
 	
 	<security:http auto-config="true" disable-url-rewriting="true">
-		<security:form-login login-page="/login" 
+		<security:form-login login-page="/login"
 				username-parameter="emp"
 				password-parameter="password"
 				authentication-success-handler-ref="loginSuccessHandler"

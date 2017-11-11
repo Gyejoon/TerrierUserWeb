@@ -230,29 +230,7 @@ public class ProfileController {
 		
 		String username = request.getSession().getAttribute("username").toString();
 		
-		System.out.println(request.getParameter("name"));
-		System.out.println(request.getParameter("contents"));
-		
-//		// Post로 관리자서버에 분실 신고 요청
-//		CloseableHttpClient httpClient = HttpClients.createDefault();
-//		HttpPost httpPost = new HttpPost("http://58.141.234.126:55406/otpadd");
-//			
-//		// 파라미터는 employee_num, contents
-//		List<NameValuePair> list = new ArrayList<NameValuePair>();
-//		list.add(new BasicNameValuePair("employee_num", username));
-//		list.add(new BasicNameValuePair("Name", userVo.getName()));
-//				
-//		httpPost.setEntity(new UrlEncodedFormEntity(list, "UTF-8"));
-//		CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
-//		// 응답 결과를 받음
-//		HttpEntity entity = httpResponse.getEntity();
-//		// 응답 결과가 JSON이므로 JSON을 HashMap 객체로 파싱
-//		ObjectMapper mapper = new ObjectMapper();
-//		HashMap<String, Object> map = mapper.readValue(EntityUtils.toString(entity), HashMap.class);
-//				
-//		EntityUtils.consume(entity);
-//			
-//		httpResponse.close();		
+		commonService.ReportLost(username, "분실신고", request.getParameter("contents"));
 		
 		return "redirect:/lost";
 	}

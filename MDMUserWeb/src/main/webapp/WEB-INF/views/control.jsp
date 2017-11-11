@@ -55,6 +55,42 @@
 			
 			a:hover {text-decoration: none;}
 			
+			@media only screen and (min-device-width : 320px) and (max-device-width : 480px){
+				#thead_s{
+					display : none;
+					visibility: hidden;
+				}
+				.form-control{
+					display : none;
+					visibility: hidden;
+				}
+				#search_button{
+					display : none;
+					visibility: hidden;
+				}
+				#num{
+					display : none;
+					visibility: hidden;
+				}
+				#write{
+					position:fixed;
+					width:100%;
+					height: 100%;
+					display:inline-block; 
+					right:0px; /* 창에서 오른쪽 길이 */ 
+					top:94%; /* 창에서 위에서 부터의 높이 */ 
+					margin:0;
+					background: #0264d6; /* Old browsers */
+					background: -moz-radial-gradient(center, ellipse cover,  #0264d6 1%, #1c2b5a 100%); /* FF3.6+ */
+					background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(1%,#0264d6), color-stop(100%,#1c2b5a)); /* Chrome,Safari4+ */
+					background: -webkit-radial-gradient(center, ellipse cover,  #0264d6 1%,#1c2b5a 100%); /* Chrome10+,Safari5.1+ */
+					background: -o-radial-gradient(center, ellipse cover,  #0264d6 1%,#1c2b5a 100%); /* Opera 12+ */
+					background: -ms-radial-gradient(center, ellipse cover,  #0264d6 1%,#1c2b5a 100%); /* IE10+ */
+					background: radial-gradient(ellipse at center,  #0264d6 1%,#1c2b5a 100%); /* W3C */
+				}
+
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -92,11 +128,11 @@
 						<a class="ui blue ribbon label">Terrier</a>
 							<span id="board_title">제어 요청 내역</span>
 						
-						<table class="table table-hover">
-							<thead>
+						<table class="table table-hover" id="request">
+							<thead id="thead_s">
 							<tr>
 								<th>번호</th>
-								<th>제목</th>
+								<th>요청사항</th>
 								<th>작성자</th>
 								<th>작성일</th>
 								<th>승인여부</th>
@@ -114,14 +150,14 @@
 								<c:when test="${count > 0}">
 								<c:forEach items="${list}" var="dto" varStatus="status">
 									<tr>
-										<td>${dto.rn}</td>
+										<td id="num">${dto.rn}</td>
 										<td width="400">
 										<a href="/control/view?id=${dto.idcontrol_board}">${dto.title}</a>
 										<c:if test="${dto.file_exist == 'Y'}">
 											<label class="icon fa-save" id="icon"></label>
 										</c:if>
 										</td>
-										<td>${profile.name}</td>
+										<td id="name">${profile.name}</td>
 										<td>${dto.regist_date}</td>
 										<c:choose>
 											<c:when test="${dto.admit == 0}">
@@ -186,16 +222,11 @@
 							    <div class="form-control" style="font-weight: bold; border: thin; color: #000;">제목</div>
 								    <select class="form-control" name="search_tit" id="search_tit">
 								    	<option value="">제목 선택</option>
-								      	<option>와이파이 차단</option>
 										<option>와이파이 허용</option>
-										<option>블루투스 차단</option>
 										<option>블루투스 허용</option>
-										<option>카메라 차단</option>
 										<option>카메라 허용</option>
-										<option>테더링 차단</option>
 										<option>테더링 허용</option>
 										<option>음성녹음 허용</option>
-										<option>음성녹음 차단</option>
 								    </select>
 							    <div class="form-control" style="font-weight: bold; border: thin; color: #000;">내용</div>
 							    <div class="input-group">
@@ -210,7 +241,7 @@
 							</form>
 							</td>					
 							<td class="text-right">
-								<a href="/control/write" class="btn btn-primary">글쓰기</a>
+								<a href="/control/write" class="btn btn-primary" id="write">제어요청</a>
 							</td>
 						</tr>
 						</table>

@@ -51,6 +51,7 @@ public class HomeController {
 		model.addAttribute("profile", commonService.Profile(username));
 		model.addAttribute("applist", commonService.ApplicationList(username));
 		model.addAttribute("manage", commonService.Management(username));
+		model.addAttribute("ManageDate", commonService.DeviceMangeDate(username));
 		
 		return "profile";
 	}

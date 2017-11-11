@@ -104,12 +104,12 @@
 					<div class="col">
 						<div class="ui card" style="width: 550px;">
 						<a class="ui blue label"><span style="font-size:20px;">기기 검사 기록</span></a>
-						<div class="text-center">
-							최근 기기 검사 날짜 : 2017-11-08 <br>
+						<div class="text-center" style="font-weight: bold;">
+							최근 기기 검사 날짜 : ${ManageDate.Devicemanage_Date} <br>
 							보안 상태 : 안전 <br>
 							변조탐지 결과 : 정상 <br>
 							루팅탐지 결과 : 정상 <br>
-							권장 기기 검사 날짜 : 2017-11-09 <br>
+							권장 기기 검사 날짜 : <span id="managedate"> ${ManageDate.Devicemanage_Date}</span> <br>
 						</div>
 						</div>
 					</div>
@@ -196,12 +196,13 @@
 				if('${manage.alarm}' == 'on'){$("#bell").attr('class', 'ui green button');}
 				if('${manage.gps}' == 'on'){$("#location").attr('class', 'ui green button');}
 				
+				
 				$("#numberback").click(function(){
 					if(!confirm("연락처 백업을 하시겠습니까?")){
 						return;
 					}
 					$.ajax({
-						url: 'https://www.terrier.co19.kr:55356/process/devicepush?controller=Backup&emp=${profile.employee_num}&onoff=Number',
+						url: 'http://www.terrier.co19.kr:55376/process/devicepush?controller=Backup&emp=${profile.employee_num}&onoff=Number',
 						type: 'GET',
 						dataType: 'jsonp',
 						jsonp: 'callback',
@@ -219,7 +220,7 @@
 						return;
 					}
 					$.ajax({
-						url: 'https://www.terrier.co19.kr:55356/process/devicepush?controller=Backup&emp=${profile.employee_num}&onoff=Img',
+						url: 'http://www.terrier.co19.kr:55376/process/devicepush?controller=Backup&emp=${profile.employee_num}&onoff=Img',
 						type: 'GET',
 						dataType: 'jsonp',
 						jsonp: 'callback',
@@ -243,7 +244,7 @@
 						return;
 					}
 					$.ajax({
-						url: 'https://www.terrier.co19.kr:55356/process/devicepush?controller=Gps&emp=${profile.employee_num}&onoff='+onoff.toUpperCase(),
+						url: 'http://www.terrier.co19.kr:55376/process/devicepush?controller=Gps&emp=${profile.employee_num}&onoff='+onoff.toUpperCase(),
 						type: 'GET',
 						dataType : 'jsonp',
 						jsonp: 'callback',
@@ -275,7 +276,7 @@
 						return;
 					}
 					$.ajax({
-						url: 'https://www.terrier.co19.kr:55356/process/devicepush?controller=Alarm&emp=${profile.employee_num}&onoff='+onoff.toUpperCase(),
+						url: 'http://www.terrier.co19.kr:55376/process/devicepush?controller=Alarm&emp=${profile.employee_num}&onoff='+onoff.toUpperCase(),
 						type: 'GET',
 						dataType : 'jsonp',
 						jsonp: 'callback',

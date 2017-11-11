@@ -65,6 +65,10 @@
 				width: 100%;
 			}
 			
+			@media only screen and (min-device-width : 320px) and (max-device-width : 480px){
+				
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -111,16 +115,11 @@
 							    		<div class="field">
 							      			<label> 제목</label>
 											<select class="form-control" name="title" id="title_tit">
-												<option>와이파이 차단</option>
 												<option>와이파이 허용</option>
-												<option>블루투스 차단</option>
 												<option>블루투스 허용</option>
-												<option>카메라 차단</option>
 												<option>카메라 허용</option>
-												<option>테더링 차단</option>
 												<option>테더링 허용</option>
 												<option>음성녹음 허용</option>
-												<option>음성녹음 차단</option>
 											</select>
 										</div>
 										<div class="field"></div>

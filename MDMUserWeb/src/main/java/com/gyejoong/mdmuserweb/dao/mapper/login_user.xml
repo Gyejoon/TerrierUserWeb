@@ -10,7 +10,7 @@
 		password as password
 		from user_info inner join device_info
 		on employee_num = User_info_employee_num
-		where employee_num = #{username} 
+		where employee_num = #{username}
 	</select>
 	
 </mapper>

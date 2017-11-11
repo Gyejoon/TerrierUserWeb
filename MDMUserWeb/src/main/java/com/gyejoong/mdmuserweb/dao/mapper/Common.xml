@@ -74,4 +74,22 @@
 		]]>
 	</select>
 	
+	<select id="DeviceMangeDate" resultType="hashmap">
+		<![CDATA[
+			select date_format(
+				(select dh.Date from device_history as dh
+				inner join device_info as di
+				on dh.Device_info_Id = di.Id
+				where di.User_info_employee_num = #{username}
+				and type = 'devicemanage' and history = '기기검사' 
+				order by Date desc limit 1), "%Y-%c-%d") as Devicemanage_Date;
+		]]>
+	</select>
+	
+	
+	<insert id="ReportLost">
+		call user_history(#{param1}, #{param2}, #{param3})
+	</insert>
+	
+	
 </mapper>
