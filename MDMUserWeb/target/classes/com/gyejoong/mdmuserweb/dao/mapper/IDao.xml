@@ -12,6 +12,7 @@
     			where employee_num = #{username}
 	</select>
 	
+	<!-- 게시판 글 목록 조회 -->
 	<select id="BoardList" resultType="com.gyejoong.mdmuserweb.vo.BoardVo">
 		SELECT *
   		FROM (SELECT @rn := @rn + 1 rn
